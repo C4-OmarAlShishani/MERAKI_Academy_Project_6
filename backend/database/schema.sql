@@ -1,4 +1,4 @@
--- DROP DATABASE MERAKI_Academy_Project_6;
+DROP DATABASE MERAKI_Academy_Project_6;
 -- CREATE DATABASE MERAKI_Academy_Project_6;
 CREATE DATABASE MERAKI_Academy_Project_6;
 
@@ -30,7 +30,7 @@ CREATE TABLE role_permission (
 -- ============================ // done
 CREATE TABLE users(
     id INT AUTO_INCREMENT NOT NULL,
-    firsName VARCHAR(100) NOT NULL,
+    firstName VARCHAR(100) NOT NULL,
     lastName VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     image VARCHAR(100),

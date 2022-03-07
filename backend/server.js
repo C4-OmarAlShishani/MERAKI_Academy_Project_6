@@ -17,6 +17,13 @@ const albumRouter = require("./routes/albums");
 const videoRouter = require("./routes/videos");
 const loginRouter = require("./routes/login");
 
+
+//middleware
+app.use("/album", albumRouter);
+app.use("/video", videoRouter);
+app.use("/login", loginRouter);
+app.use("/user", userRouter);
+
 app.listen(PORT, () => {
   console.log(`SERVER WORKING ON PORT: ${PORT}`);
 });

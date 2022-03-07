@@ -3,8 +3,6 @@
 const bcrypt = require("bcrypt");
 const connection = require("../database/db");
 
-// const secretSalt = process.env.SALT;
-// require("dotenv").config();
 
 // This function to sign up new user .
 const createNewUser = async (req, res) => {
@@ -26,7 +24,7 @@ const createNewUser = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Success User Added",
-      result: result,
+      result: data,
     });
   });
 };
