@@ -8,14 +8,14 @@ const connection = require("../database/db");
 
 // This function to sign up new user .
 const createNewUser = async (req, res) => {
-  const { user_name, email, password, role_id } = req.body;
+  const { firstName, lastName, email, image, password, role_id } = req.body;
 
   const hashingPass = await bcrypt.hash(password, 5);
 
-  const query = `INSERT INTO users (user_name, email, password, role_id) VALUES (?,?,?,?)`;
-  const data = [user_name, email, hashingPass, role_id];
+  const query = `INSERT INTO users (firstName, lastName, email, image, password, role_id) VALUES (?,?,?,?,?,?)`;
+  const data = [firstName, lastName, email, image, hashingPass, role_id];
 
-  connection.query(query, data, (err, results) => {
+  connection.query(query, data, (err, result) => {
     if (err) {
       return res.status(409).json({
         success: false,
@@ -25,8 +25,8 @@ const createNewUser = async (req, res) => {
     }
     res.status(200).json({
       success: true,
-      message: "Success user Added",
-      results: results,
+      message: "Success User Added",
+      result: result,
     });
   });
 };
@@ -38,7 +38,7 @@ const getUserById = (req, res) => {
   const query = `SELECT * FROM users  WHERE id=?`;
   const data = [id];
 
-  connection.query(query, data, (err, results) => {
+  connection.query(query, data, (err, result) => {
     if (err) {
       return res.status(500).json({
         success: false,
@@ -46,7 +46,7 @@ const getUserById = (req, res) => {
         err: err,
       });
     }
-    if (results.length == 0) {
+    if (result.length == 0) {
       return res.status(404).json({
         success: false,
         massage: "The user Not found",
@@ -55,21 +55,21 @@ const getUserById = (req, res) => {
     res.status(200).json({
       success: true,
       massage: `The user ${id}`,
-      results: results,
+      result: result,
     });
   });
 };
 
 // This function to update user by id.
 const updateUserById = (req, res) => {
-  const { user_name, email, password, role_id } = req.body;
+  const { firstName, lastName, email, image, password, role_id } = req.body;
   const id = req.query.id;
 
-  const query = `UPDATE users SET user_name=?, email=?, password=? , role_id = ? WHERE id=?;`;
+  const query = `UPDATE users SET firstName=?, lastName=?, email=?, image=? password=? , role_id = ? WHERE id=?;`;
 
-  const data = [user_name, email, password, role_id, id];
+  const data = [firstName, lastName, email, image, password, role_id];
 
-  connection.query(query, data, (err, results) => {
+  connection.query(query, data, (err, result) => {
     if (err) {
       return res.status(404).json({
         success: false,
@@ -77,7 +77,7 @@ const updateUserById = (req, res) => {
         err: err,
       });
     }
-    if (results.changedRows == 0) {
+    if (result.changedRows == 0) {
       return res.status(404).json({
         success: false,
         massage: `The user : ${id} is not found`,
@@ -88,7 +88,7 @@ const updateUserById = (req, res) => {
     res.status(201).json({
       success: true,
       massage: `the user updated`,
-      results: results,
+      result: result,
     });
   });
 };
@@ -97,11 +97,11 @@ const updateUserById = (req, res) => {
 const deleteUserById = (req, res) => {
   const id = req.params.id;
 
-  const query = `DELETE from users WHERE id=?;`;
+  const query = `UPDATE users SET is_deleted = 1 WHERE id=?;`;
 
   const data = [id];
 
-  connection.query(query, data, (err, results) => {
+  connection.query(query, data, (err, result) => {
     if (err) {
       return res.status(500).json({
         success: false,
@@ -109,7 +109,7 @@ const deleteUserById = (req, res) => {
         err: err,
       });
     }
-    if (!results.changedRows) {
+    if (!result.changedRows) {
       return res.status(404).json({
         success: false,
         massage: `The user: ${id} is not found`,
@@ -120,7 +120,7 @@ const deleteUserById = (req, res) => {
     res.status(200).json({
       success: true,
       massage: `Succeeded to delete user with id: ${id}`,
-      results: results,
+      result: result,
     });
   });
 };
@@ -128,7 +128,7 @@ const deleteUserById = (req, res) => {
 
 // This function get all items from items
 const getAllIUses = (req, res) => {
-  const query = `SELECT * FROM users`;
+  const query = `SELECT * FROM users WHERE is_deleted = 0`;
   connection.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({
@@ -145,8 +145,8 @@ const getAllIUses = (req, res) => {
 };
 module.exports = {
   createNewUser,
+  getAllIUses,
   getUserById,
   updateUserById,
-  deleteUserById,
-  getAllIUses,
+  deleteUserById
 };
