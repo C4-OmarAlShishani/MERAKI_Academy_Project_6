@@ -1,23 +1,19 @@
 /** @format */
 
 const express = require("express");
-// const {
-//   createNewUser,
-//   getUserById,
-//   updateUserById,
-//   deleteUserById,
-//   getAllIUses,
-// } = require("../controllers/users");
+const {
+    createNewAlbum,
+    updateAlbum,
+    getAllAlbums,
+    getAlbumById,
+    deleteAlbumById,
+} = require("../controllers/albums");
 const albumRouter = express.Router();
-// //dont press enter
-// //write your code here
 
-// userRouter.post("/", createNewUser);
-// userRouter.get("/", getUserById);
-// userRouter.get("/all", getAllIUses);
+userRouter.post("/", createNewAlbum);
+userRouter.get("/", getAllAlbums);
+userRouter.get("/:id", getAlbumById);
+userRouter.put("/:id", updateAlbum);
+userRouter.delete("/:id", deleteAlbumById);
 
-// userRouter.put("/", updateUserById);
-// userRouter.delete("/:id", deleteUserById);
-
-//write your code here
 module.exports = albumRouter;
