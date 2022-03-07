@@ -50,7 +50,7 @@ const updateAlbum = (req, res) => {
 
 // This function returns the categories
 const getAllAlbums = (req, res) => {
-  const query = `SELECT * FROM categories WHERE is_deleted = 0`;
+  const query = `SELECT * FROM albums WHERE is_deleted = 0`;
   connection.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({
@@ -76,7 +76,7 @@ const getAllAlbums = (req, res) => {
 // This function returns Category By Id
 const getAlbumById = (req, res) => {
   let id = req.params.id;
-  const query = `SELECT * FROM Albums WHERE id = ?`;
+  const query = `SELECT * FROM albums WHERE id = ?`;
   const data = [id];
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -97,7 +97,7 @@ const getAlbumById = (req, res) => {
 // This function delete Category By Id
 const deleteAlbumById = (req, res) => {
   let id = req.params.id;
-  const query = `UPDATE Albums SET is_deleted = 1 WHERE id=?;`;
+  const query = `UPDATE albums SET is_deleted = 1 WHERE id=?;`;
   const data = [id];
   connection.query(query, data, (err, result) => {
     if (err) {

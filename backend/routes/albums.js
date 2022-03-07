@@ -10,10 +10,10 @@ const {
 } = require("../controllers/albums");
 const albumRouter = express.Router();
 
-userRouter.post("/", createNewAlbum);
-userRouter.get("/", getAllAlbums);
-userRouter.get("/:id", getAlbumById);
-userRouter.put("/:id", updateAlbum);
-userRouter.delete("/:id", deleteAlbumById);
+albumRouter.post("/", createNewAlbum);
+albumRouter.get("/", getAllAlbums);
+albumRouter.get("/:id", getAlbumById);
+albumRouter.put("/:id", updateAlbum);
+albumRouter.delete("/:id", deleteAlbumById);
 
 module.exports = albumRouter;
