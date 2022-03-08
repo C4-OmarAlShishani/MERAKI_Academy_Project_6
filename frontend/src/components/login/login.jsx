@@ -28,13 +28,14 @@ const Login = (message) => {
         if (result) {
           localStorage.setItem("token", result.data.token);
           localStorage.setItem("userName", jwt(result.data.token).userName);
+          localStorage.setItem("userID", jwt(result.data.token).userId);
           setEmail("");
           setPassword("");
           if (jwt(result.data.token).role == 1) {
             localStorage.setItem("isAdmin", true);
-            navigate(`/`);
+            navigate(`/add`);
           } else {
-            navigate(`/`);
+            navigate(`/add`);
           }
           dispatch(logIn(result.data.token));
         }

@@ -7,6 +7,7 @@ import Login from "./components/login/login";
 import SignUp from "./components/singup/signup";
 import MainPage from "./components/mainpage/mainPage";
 import VideoDetails from "./components/videoDetails/videoDetails";
+import AddVideo from "./components/addVideo/addVideo";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/singUp" element={<SignUp />} />
         <Route path="/watch" element={<VideoDetails />} />
+        <Route path="/add" element={<AddVideo />} />
       </Routes>
     </div>
   );

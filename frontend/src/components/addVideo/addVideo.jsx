@@ -27,7 +27,10 @@ const AddVideo = () => {
   const [album_id, setAlbum_id] = useState(0);
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
+  const [videoURL, setVideoURL] = useState("");
+  const [user_id, setUser_id] = useState(
+    parseInt(localStorage.getItem("userID"))
+  );
 
   //===============================================================
 
@@ -39,7 +42,7 @@ const AddVideo = () => {
     axios
       .post(`https://api.cloudinary.com/v1_1/debtpixx1/image/upload/`, formData)
       .then((res) => {
-        setImageUrl(res.data.secure_url);
+        setVideoURL(res.data.secure_url);
         console.log(res.data.secure_url);
       });
   };
@@ -53,8 +56,9 @@ const AddVideo = () => {
       const item = {
         title: title,
         descriptions: "in stock",
-        video: imageUrl,
-        album_id
+        video: videoURL,
+        album_id,
+        user_id,
       };
       const result = await axios.post("http://localhost:5000/item/", item, {
         headers: {
@@ -63,7 +67,7 @@ const AddVideo = () => {
       });
       if (result.data.success) {
         setStatus(true);
-        dispatch(addVideo({ title, descriptions, video, album_id }));
+        dispatch(addVideo({ title, descriptions, video, album_id, user_id }));
         setMessage("The item has been created successfully");
       }
     } catch (error) {
@@ -83,6 +87,13 @@ const AddVideo = () => {
         type="text"
         placeholder="TITLE"
         onChange={(e) => setTitle(e.target.value)}
+      />
+      <br />
+      <br />
+      <textarea
+        type="text"
+        placeholder="Description"
+        onChange={(e) => setDescriptions(e.target.value)}
       />
       <br />
       <br />
