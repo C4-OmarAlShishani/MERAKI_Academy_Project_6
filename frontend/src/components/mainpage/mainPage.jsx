@@ -84,7 +84,7 @@ const MainPage = () => {
       .then((result) => {
         dispatch(setVideoInfo({ ...result.data.result }));
         console.log(...result.data.result);
-        navigate("/more-info");
+        navigate("/watch");
       })
       .catch((err) => {
         console.log(err);

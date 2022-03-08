@@ -2,7 +2,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
- import bootstrap from 'bootstrap'
 
 const NavBar = () => {
   return <nav class="navbar navbar-light bg-light">

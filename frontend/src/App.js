@@ -6,6 +6,7 @@ import NavBar from "./components/navbar/navbar";
 import Login from "./components/login/login";
 import SignUp from "./components/singup/signup";
 import MainPage from "./components/mainpage/mainPage";
+import VideoDetails from "./components/videoDetails/videoDetails";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/singUp" element={<SignUp />} />
+        <Route path="/watch" element={<VideoDetails />} />
       </Routes>
     </div>
   );
