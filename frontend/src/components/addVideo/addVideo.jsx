@@ -45,20 +45,22 @@ const AddVideo = () => {
     formData.append("upload_preset", "addVideo");
     axios
       .post(`https://api.cloudinary.com/v1_1/omar-alshishani/video/upload/`, formData)
-      .then((res) => {
-        setVideoURL(res.data.secure_url);
+      .then(async(res) => {
+        await setVideoURL(res.data.secure_url);
         console.log(res.data.secure_url);
+        createNewItem(res.data.secure_url);
       });
   };
 
   //===============================================================
 
-  const createNewItem = async (e) => {
+  const createNewItem = async (url) => {
+      console.log(url);
     try {
       const item = {
         title: title,
         descriptions: "in stock",
-        video: videoURL,
+        video: url,
         album_id,
         user_id,
       };
@@ -71,6 +73,7 @@ const AddVideo = () => {
         setStatus(true);
         dispatch(addVideo({ title, descriptions, video, album_id, user_id }));
         console.log("The item has been created successfully");
+        
       }
     } catch (error) {
       if (!error.response.data.success) {
@@ -117,7 +120,7 @@ const AddVideo = () => {
         <button
           onClick={() => {
             uploadImage();
-             createNewItem();
+             
           }}>
           Create New item
         </button>

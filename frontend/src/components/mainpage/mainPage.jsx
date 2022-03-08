@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setVideos, setCategories } from "../../reducer/video/index";
 import { setVideoInfo } from "../../reducer/videoInfo/index";
 import { useNavigate } from "react-router-dom";
+import ReactPlayer from "react-player";
 
 //===============================================================
 
@@ -90,7 +91,7 @@ const MainPage = () => {
         console.log(err);
       });
   };
-//   console.log(videos);
+  console.log(videos);
   //===============================================================
 
   //   let categoriesMap = categories.map((category, indx) => {
@@ -115,7 +116,14 @@ const MainPage = () => {
           return (
             <div className="item">
               <div className="videoBox">
-                {item.video ? <img src={item.video} alt={item.title} /> : null}
+                {item.video ? (
+                  <video controls>
+                    <source
+                      src={item.video}
+                      type="video/mp4; codecs=avc1.4d002a"
+                    />
+                  </video>
+                ) : null}
               </div>
               <div className="title">
                 <p>{item.title}</p>
