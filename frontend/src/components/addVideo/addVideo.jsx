@@ -24,8 +24,7 @@ const AddVideo = () => {
   const [title, setTitle] = useState("");
   const [descriptions, setDescriptions] = useState("");
   const [video, setVideo] = useState("");
-  const [price, setPrice] = useState(0);
-  const [category_id, setCategory_id] = useState(0);
+  const [album_id, setAlbum_id] = useState(0);
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
@@ -55,7 +54,7 @@ const AddVideo = () => {
         title: title,
         descriptions: "in stock",
         video: imageUrl,
-        category_id: category_id,
+        album_id
       };
       const result = await axios.post("http://localhost:5000/item/", item, {
         headers: {
@@ -64,7 +63,7 @@ const AddVideo = () => {
       });
       if (result.data.success) {
         setStatus(true);
-        dispatch(addVideo({ title, descriptions, video, category_id }));
+        dispatch(addVideo({ title, descriptions, video, album_id }));
         setMessage("The item has been created successfully");
       }
     } catch (error) {
@@ -86,15 +85,10 @@ const AddVideo = () => {
         onChange={(e) => setTitle(e.target.value)}
       />
       <br />
-      <input
-        type="number"
-        placeholder="PRICE"
-        onChange={(e) => setPrice(e.target.value)}
-      />
       <br />
       <input
-        placeholder="CATEGORY"
-        onChange={(e) => setCategory_id(e.target.value)}
+        placeholder="ALBUM"
+        onChange={(e) => setAlbum_id(e.target.value)}
       />
       <datalist id="data">
         <option id={1} value={"Music"} />
