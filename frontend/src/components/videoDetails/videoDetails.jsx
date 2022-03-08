@@ -4,13 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 
 
 const VideoDetails = () => {
-    const { item } = useSelector((state) => {
+    const { videoInfo } = useSelector((state) => {
         return {
-          token: state.loginReducer.token,
-          videos: state.videosReducer.videos,
-          categories: state.videosReducer.categories,
+            videoInfo: state.videoInfoReducer.videoInfo,
         };
       });
+      console.log(videoInfo);
   return <div className="videoDetails">
       <h1>VideoDetails</h1>
       </div>;
