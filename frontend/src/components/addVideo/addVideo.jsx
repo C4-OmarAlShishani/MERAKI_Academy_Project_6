@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { addVideo } from "../../reducer/video/index";
+import Select from "react-select";
 
 //===============================================================
 
@@ -31,16 +32,19 @@ const AddVideo = () => {
   const [user_id, setUser_id] = useState(
     parseInt(localStorage.getItem("userID"))
   );
-
+  const options = [
+    { value: 1, label: "Music" },
+    { value: 2, label: "Favorite" },
+  ];
   //===============================================================
 
   const uploadImage = () => {
     const formData = new FormData();
 
     formData.append("file", video);
-    formData.append("upload_preset", "rwnvwutb");
+    formData.append("upload_preset", "addVideo");
     axios
-      .post(`https://api.cloudinary.com/v1_1/debtpixx1/image/upload/`, formData)
+      .post(`https://api.cloudinary.com/v1_1/omar-alshishani/video/upload/`, formData)
       .then((res) => {
         setVideoURL(res.data.secure_url);
         console.log(res.data.secure_url);
@@ -50,8 +54,6 @@ const AddVideo = () => {
   //===============================================================
 
   const createNewItem = async (e) => {
-    e.preventDefault();
-
     try {
       const item = {
         title: title,
@@ -60,7 +62,7 @@ const AddVideo = () => {
         album_id,
         user_id,
       };
-      const result = await axios.post("http://localhost:5000/item/", item, {
+      const result = await axios.post("http://localhost:5000/video/", item, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -68,12 +70,12 @@ const AddVideo = () => {
       if (result.data.success) {
         setStatus(true);
         dispatch(addVideo({ title, descriptions, video, album_id, user_id }));
-        setMessage("The item has been created successfully");
+        console.log("The item has been created successfully");
       }
     } catch (error) {
       if (!error.response.data.success) {
         setStatus(false);
-        setMessage(error.response.data.message);
+        console.log(error.response.data.message);
       }
     }
   };
@@ -97,15 +99,13 @@ const AddVideo = () => {
       />
       <br />
       <br />
-      <input
+      <Select
+        onChange={(e) => {
+          setAlbum_id(e.value);
+        }}
+        options={options}
         placeholder="ALBUM"
-        onChange={(e) => setAlbum_id(e.target.value)}
       />
-      <datalist id="data">
-        <option id={1} value={"Music"} />
-        <option id={2} value={"Favorite"} />
-      </datalist>
-      <br />
 
       <input
         type="file"
@@ -114,11 +114,10 @@ const AddVideo = () => {
         }}
       />
       <div className="addItemBTN">
-        {/* <button onClick={uploadImage}> upload image</button> */}
         <button
           onClick={() => {
             uploadImage();
-            createNewItem();
+             createNewItem();
           }}>
           Create New item
         </button>
