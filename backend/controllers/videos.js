@@ -27,7 +27,9 @@ const createNewVideo = (req, res) => {
 
 // This function get all items from items
 const getAllVideos = (req, res) => {
-  const query = `SELECT * FROM videos WHERE is_deleted = 0 `;
+  // SELECT * videos LEFT JOIN users ON videos.user_id = users.id WHERE is_deleted = 0
+  // SELECT * FROM videos WHERE is_deleted = 0 
+  const query = `SELECT * FROM videos LEFT JOIN users ON videos.user_id = users.id `;
   connection.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({

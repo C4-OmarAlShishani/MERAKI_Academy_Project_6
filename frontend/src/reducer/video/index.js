@@ -1,34 +1,34 @@
 /** @format */
 
 const initialState = {
-  items: [],
+  videos: [],
   categories: [],
 };
 // =======================  //
 
-const itemsReducer = (state = initialState, { type, payload }) => {
+const videosReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case "SET_ITEMS":
-      return { ...state, items: payload };
+    case "SET_VIDEO":
+      return { ...state, videos: payload };
 
-    case "ADD_ITEM":
-      return { ...state, items: [...state.items, payload] };
+    case "ADD_VIDEO":
+      return { ...state, videos: [...state.videos, payload] };
 
-    case "DELETE_ITEM":
+    case "DELETE_VIDEO":
       return {
         ...state,
-        items: state.items.filter((item) => {
-          return item.id !== payload;
+        videos: state.videos.filter((video) => {
+          return video.id !== payload;
         }),
       };
-    case "UPDATE_ITEM":
+    case "UPDATE_VIDEO":
       return {
         ...state,
-        items: state.items.map((item) => {
-          if (item.id === payload.id) {
+        videos: state.videos.map((video) => {
+          if (video.id === payload.id) {
             return payload;
           }
-          return item;
+          return video;
         }),
       };
 
@@ -62,27 +62,27 @@ const itemsReducer = (state = initialState, { type, payload }) => {
   }
 };
 
-export default itemsReducer;
+export default videosReducer;
 
 // =======================  //
 
-export const setItems = (items) => {
-  return { type: "SET_ITEMS", payload: items };
+export const setVideos = (videos) => {
+  return { type: "SET_VIDEO", payload: videos };
 };
 // =======================  //
 
-export const addItem = (newItem) => {
-  return { type: "ADD_ITEM", payload: newItem };
+export const addVideo = (newVideo) => {
+  return { type: "ADD_VIDEO", payload: newVideo };
 };
 // =======================  //
 
-export const updateItem = (newItem) => {
-  return { type: "UPDATE_ITEM", payload: newItem };
+export const updateVideo = (newVideo) => {
+  return { type: "UPDATE_VIDEO", payload: newVideo };
 };
 // =======================  //
 
-export const deleteItem = (id) => {
-  return { type: "DELETE_ITEM", payload: id };
+export const deleteVideo = (id) => {
+  return { type: "DELETE_VIDEO", payload: id };
 };
 // =======================  //
 export const addCategory = (newCategory) => {
