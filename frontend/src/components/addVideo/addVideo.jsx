@@ -29,6 +29,7 @@ const AddVideo = () => {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
   const [videoURL, setVideoURL] = useState("");
+  const [starterImage, setStarterImage] = useState("");
   const [user_id, setUser_id] = useState(
     parseInt(localStorage.getItem("userID"))
   );

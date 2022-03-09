@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setVideos, setCategories } from "../../reducer/video/index";
 import { setVideoInfo } from "../../reducer/videoInfo/index";
 import { useNavigate } from "react-router-dom";
-import ReactPlayer from "react-player";
+import Card from "react-bootstrap/Card";
 
 //===============================================================
 
@@ -114,10 +114,17 @@ const MainPage = () => {
         <h1>Hallo Main</h1>
         {videos.map((item, index) => {
           return (
-            <div className="item">
+            <div className="container ">
               <div className="videoBox">
                 {item.video ? (
-                  <video controls>
+                  <video
+                    id={item.id}
+                    onClick={(e) => {
+                      console.log(item);
+                      console.log(e.target.id);
+                      getVideoById(e.target.id);
+                    }}
+                    style={{ width: "400px" }}>
                     <source
                       src={item.video}
                       type="video/mp4; codecs=avc1.4d002a"
@@ -137,13 +144,15 @@ const MainPage = () => {
                 </p>
               </div>
               <div className="btn">
-                <button
+                {/* <button
                   id={item.id}
                   onClick={(e) => {
+                    console.log(item);
+                    console.log(e.target.id);
                     getVideoById(e.target.id);
                   }}>
                   ITEM DETAILS
-                </button>
+                </button> */}
               </div>
             </div>
           );
@@ -152,5 +161,13 @@ const MainPage = () => {
     </div>
   );
 };
+//  <div class="card" style="width: 18rem;">
+// <video src={item.video}></video>
+// <div class="card-body">
+//   <h5 class="card-title">{item.title}</h5>
+//   <p class="card-text"></p>
+//   <a href="#" class="btn btn-primary">Go somewhere</a>
+// </div>
+// </div>
 
 export default MainPage;

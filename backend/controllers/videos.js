@@ -4,10 +4,11 @@ const connection = require("../database/db");
 
 // This function create new item
 const createNewVideo = (req, res) => {
-  const { title, descriptions, album_id, video, user_id } = req.body;
+  const { title, descriptions, album_id, video, user_id, starterImage } =
+    req.body;
 
-  const query = `INSERT INTO videos (title, descriptions,album_id, video, user_id) VALUE (?,?,?,?,?)`;
-  const data = [title, descriptions, album_id, video, user_id];
+  const query = `INSERT INTO videos (title, descriptions,album_id, video, user_id,starterImage) VALUE (?,?,?,?,?,?)`;
+  const data = [title, descriptions, album_id, video, user_id, starterImage];
   connection.query(query, data, (err, result) => {
     if (err) {
       return res.status(500).json({
@@ -28,8 +29,9 @@ const createNewVideo = (req, res) => {
 // This function get all items from items
 const getAllVideos = (req, res) => {
   // SELECT * videos LEFT JOIN users ON videos.user_id = users.id WHERE is_deleted = 0
-  // SELECT * FROM videos WHERE is_deleted = 0 
-  const query = `SELECT * FROM videos LEFT JOIN users ON videos.user_id = users.id `;
+  // SELECT * FROM videos WHERE is_deleted = 0
+  // , title, descriptions, album_id, video
+  const query = `SELECT users.*, videos.id, videos.*  FROM videos LEFT JOIN users ON videos.user_id = users.id `;
   connection.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({
@@ -98,7 +100,7 @@ const getVideoById = (req, res) => {
 // // =================================================== // done
 // This function to update item by id.
 const updateVideoById = (req, res) => {
-  const { title, descriptions, album_id, video, user_id } = req.body;
+  const { title, descriptions, album_id, video, user_id, starterImage } = req.body;
   const id = req.params.id;
   const query = `UPDATE videos SET video= IF(${
     video != ""
@@ -106,9 +108,9 @@ const updateVideoById = (req, res) => {
     descriptions != ""
   }, ?, descriptions) , album_id = IF(${
     album_id != ""
-  }, ?, album_id) , user_id= IF(${user_id != ""}, ?, user_id) WHERE id=?;`;
+  }, ?, album_id) , user_id= IF(${user_id != ""}, ?, user_id), starterImage= IF(${starterImage != ""}, ?, starterImage) WHERE id=?;`;
 
-  const data = [image, title, descriptions, category, price, id];
+  const data = [image, title, descriptions, category, price,starterImage, id];
 
   connection.query(query, data, (err, results) => {
     if (err) {

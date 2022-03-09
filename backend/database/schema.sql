@@ -57,6 +57,7 @@ CREATE TABLE videos (
     descriptions VARCHAR(255),
     album_id INT,
     video VARCHAR(250) NOT NULL,
+    starterImage VARCHAR(250) ,
     user_id INT,
     FOREIGN KEY (album_id) REFERENCES albums(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
