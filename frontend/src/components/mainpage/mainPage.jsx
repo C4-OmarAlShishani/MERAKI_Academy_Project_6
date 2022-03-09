@@ -83,7 +83,6 @@ const MainPage = () => {
       .get(`http://localhost:5000/video/id?id=${id}`)
       .then((result) => {
         dispatch(setVideoInfo({ ...result.data.result }));
-        console.log(...result.data.result);
         navigate(`/watch/${id}`);
       })
       .catch((err) => {
@@ -118,8 +117,6 @@ const MainPage = () => {
                   <video
                     id={item.id}
                     onClick={(e) => {
-                      console.log(item);
-                      console.log(e.target.id);
                       getVideoById(e.target.id);
                     }}
                     style={{ width: "400px" }}>

@@ -22,7 +22,7 @@ const VideoDetails = () => {
       .get(`http://localhost:5000/video/id?id=${id}`)
       .then(async (result) => {
         await dispatch(setVideoInfo({ ...result.data.result }));
-        // console.log(...result.data.result);
+        console.log(...result.data.result);
       })
       .catch((err) => {
         console.log(err);
@@ -32,8 +32,6 @@ const VideoDetails = () => {
   useEffect(() => {
     getVideoById(result);
   }, []);
-
-  console.log(videoInfo);
 
   return (
     <div className="videoDetails">
