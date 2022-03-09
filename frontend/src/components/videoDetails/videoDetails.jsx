@@ -43,6 +43,8 @@ const VideoDetails = () => {
       <h2>
         {videoInfo.firstName} {videoInfo.lastName}
       </h2>
+      <h2>
+        {videoInfo.descriptions}</h2>
     </div>
   );
 };

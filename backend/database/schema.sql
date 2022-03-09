@@ -1,4 +1,5 @@
 DROP DATABASE MERAKI_Academy_Project_6;
+
 -- CREATE DATABASE MERAKI_Academy_Project_6;
 CREATE DATABASE MERAKI_Academy_Project_6;
 
@@ -47,7 +48,7 @@ CREATE TABLE albums (
     id INT AUTO_INCREMENT NOT NULL,
     album VARCHAR(100) NOT NULL,
     PRIMARY KEY (id),
-     is_deleted TINYINT DEFAULT 0
+    is_deleted TINYINT DEFAULT 0
 );
 
 -- ============================ // done
@@ -57,7 +58,7 @@ CREATE TABLE videos (
     descriptions VARCHAR(255),
     album_id INT,
     video VARCHAR(250) NOT NULL,
-    starterImage VARCHAR(250) ,
+    starterImage VARCHAR(250),
     user_id INT,
     FOREIGN KEY (album_id) REFERENCES albums(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
@@ -73,6 +74,17 @@ CREATE TABLE comments (
     commentr_id INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (video_id) REFERENCES videos (id),
+    FOREIGN KEY (commentr_id) REFERENCES users (id)
+);
+
+-- ============================ // done 
+CREATE TABLE replayComments (
+    id INT NOT NULL AUTO_INCREMENT,
+    replay VARCHAR(255),
+    comment_id INT NOT NULL,
+    commentr_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (comment_id) REFERENCES comments (id),
     FOREIGN KEY (commentr_id) REFERENCES users (id)
 );
 
