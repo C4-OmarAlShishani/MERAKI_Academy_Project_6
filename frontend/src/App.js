@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/singUp" element={<SignUp />} />
-        <Route path="/watch" element={<VideoDetails />} />
+        <Route path="/watch/:id" element={<VideoDetails />} />
         <Route path="/add" element={<AddVideo />} />
       </Routes>
     </div>

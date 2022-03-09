@@ -1,14 +1,15 @@
 /** @format */
-import React from "react";
+import React,{useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory,useNavigate } from "react-router-dom";
+import { useLocation ,useNavigate, } from "react-router-dom";
+import axios from "axios";
 
 const VideoDetails = () => {
-    let history = useNavigate();
+    let navigate = useNavigate();
+    const location = useLocation()
+    const dispatch = useDispatch();
+    let result = parseInt(location.pathname.slice(7));
 
-    // function handleClick() {
-    //   history.push("/home");
-    // }
 
   const { videoInfo } = useSelector((state) => {
     return {
@@ -16,7 +17,21 @@ const VideoDetails = () => {
     };
   });
 
-  console.log(videoInfo);
+  const getVideoById = async (id) => {
+    await axios
+      .get(`http://localhost:5000/video/id?id=${id}`)
+      .then((result) => {
+        dispatch(setVideoInfo({ ...result.data.result }));
+        console.log(...result.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getVideoById(result);
+  }, []);
  
   return (
     <div className="videoDetails">

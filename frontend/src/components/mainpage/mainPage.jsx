@@ -75,7 +75,6 @@ const MainPage = () => {
   //===============================================================
 
   useEffect(() => {
-    // getAllCategories();
     getAllVideos();
   }, []);
   //===============================================================
@@ -85,7 +84,7 @@ const MainPage = () => {
       .then((result) => {
         dispatch(setVideoInfo({ ...result.data.result }));
         console.log(...result.data.result);
-        navigate(`/watch?v=${id}`);
+        navigate(`/watch/${id}`);
       })
       .catch((err) => {
         console.log(err);
