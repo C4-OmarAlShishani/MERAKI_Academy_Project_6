@@ -80,7 +80,8 @@ const deleteVideoById = (req, res) => {
 const getVideoById = (req, res) => {
   let { id } = req.query;
 
-  const query = `SELECT users.*, videos.id, videos.*  FROM videos WHERE id = ? LEFT JOIN users ON videos.user_id = users.id `;
+  const query = `SELECT users.*, videos.id, videos.*  FROM videos LEFT JOIN users ON videos.user_id = users.id AND videos.id = ?`;
+
   const data = [id];
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -100,7 +101,8 @@ const getVideoById = (req, res) => {
 // // =================================================== // done
 // This function to update item by id.
 const updateVideoById = (req, res) => {
-  const { title, descriptions, album_id, video, user_id, starterImage } = req.body;
+  const { title, descriptions, album_id, video, user_id, starterImage } =
+    req.body;
   const id = req.params.id;
   const query = `UPDATE videos SET video= IF(${
     video != ""
@@ -108,9 +110,13 @@ const updateVideoById = (req, res) => {
     descriptions != ""
   }, ?, descriptions) , album_id = IF(${
     album_id != ""
-  }, ?, album_id) , user_id= IF(${user_id != ""}, ?, user_id), starterImage= IF(${starterImage != ""}, ?, starterImage) WHERE id=?;`;
+  }, ?, album_id) , user_id= IF(${
+    user_id != ""
+  }, ?, user_id), starterImage= IF(${
+    starterImage != ""
+  }, ?, starterImage) WHERE id=?;`;
 
-  const data = [image, title, descriptions, category, price,starterImage, id];
+  const data = [image, title, descriptions, category, price, starterImage, id];
 
   connection.query(query, data, (err, results) => {
     if (err) {

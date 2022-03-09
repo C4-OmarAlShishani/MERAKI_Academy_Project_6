@@ -90,7 +90,6 @@ const MainPage = () => {
         console.log(err);
       });
   };
-  console.log(videos);
   //===============================================================
 
   //   let categoriesMap = categories.map((category, indx) => {
