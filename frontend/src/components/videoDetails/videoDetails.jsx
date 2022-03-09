@@ -1,14 +1,17 @@
 /** @format */
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation ,useNavigate, } from "react-router-dom";
+import { setVideoInfo } from "../../reducer/videoInfo/index";
 import axios from "axios";
 
 const VideoDetails = () => {
-    let navigate = useNavigate();
+
+    const navigate = useNavigate();
     const location = useLocation()
     const dispatch = useDispatch();
     let result = parseInt(location.pathname.slice(7));
+
 
 
   const { videoInfo } = useSelector((state) => {
@@ -33,6 +36,8 @@ const VideoDetails = () => {
     getVideoById(result);
   }, []);
  
+  console.log(videoInfo);
+
   return (
     <div className="videoDetails">
       <h1>VideoDetails</h1>

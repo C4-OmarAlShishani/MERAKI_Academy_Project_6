@@ -80,7 +80,7 @@ const deleteVideoById = (req, res) => {
 const getVideoById = (req, res) => {
   let { id } = req.query;
 
-  const query = `select * FROM videos WHERE id = ?`;
+  const query = `SELECT users.*, videos.id, videos.*  FROM videos WHERE id = ? LEFT JOIN users ON videos.user_id = users.id `;
   const data = [id];
   connection.query(query, data, (err, result) => {
     if (err) {
