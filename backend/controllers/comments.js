@@ -17,7 +17,7 @@ const createNewComment = (req, res) => {
     }
     res.status(201).json({
       success: true,
-      message: `new video created`,
+      message: `new Comment created`,
       result: result,
     });
   });
@@ -38,12 +38,12 @@ const getAllComments = (req, res) => {
     if (!result) {
       return res.status(200).json({
         success: false,
-        message: `No Videos Yet`,
+        message: `No Comments Yet`,
       });
     }
     res.status(200).json({
       success: true,
-      message: `all the Videos`,
+      message: `all the Comments`,
       result: result,
     });
   });
@@ -60,12 +60,12 @@ const deleteCommentById = (req, res) => {
     if (err) {
       return res.status(500).json({
         success: false,
-        message: ` No video with id ${id}`,
+        message: ` No Comment with id ${id}`,
       });
     }
     res.status(200).json({
       success: true,
-      message: `Succeeded to delete video with id ${id}`,
+      message: `Succeeded to delete Comment with id ${id}`,
       result: result,
     });
   });
@@ -83,12 +83,12 @@ const getCommentById = (req, res) => {
     if (err) {
       return res.status(500).json({
         success: false,
-        message: ` No video with id ${id}`,
+        message: ` No Comment with id ${id}`,
       });
     }
     res.status(200).json({
       success: true,
-      message: `Succeeded to get video with id ${id}`,
+      message: `Succeeded to get Comment with id ${id}`,
       result: result,
     });
   });
@@ -115,14 +115,14 @@ const updateCommentById = (req, res) => {
     if (results.changedRows == 0) {
       return res.status(500).json({
         success: false,
-        massage: `The video : ${id} is not found`,
+        massage: `The Comment : ${id} is not found`,
         err: err,
       });
     }
 
     res.status(201).json({
       success: true,
-      massage: `the video updated`,
+      massage: `the Comment updated`,
       result: results,
     });
   });
