@@ -60,7 +60,7 @@ const AddVideo = () => {
     try {
       const item = {
         title: title,
-        descriptions: "in stock",
+        descriptions,
         video: url,
         album_id,
         user_id,
