@@ -38,6 +38,7 @@ const Login = (message) => {
             navigate(`/add`);
           }
           dispatch(logIn(result.data.token));
+          console.log(result.data.token);
         }
       })
       .catch((err) => {

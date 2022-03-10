@@ -12,29 +12,31 @@ import {
 import axios from "axios";
 
 const VideoDetails = () => {
-  const { videoInfo, token } = useSelector((state) => {
+  const { videoInfo, token, comments } = useSelector((state) => {
     return {
       videoInfo: state.videoInfoReducer.videoInfo,
+      comments: state.videoInfoReducer.comments,
       token: state.loginReducer.token,
     };
   });
-
-  const [comment, setComment] = useState("");
-  const [videoId, setVideoId] = useState(videoInfo.id);
-  const [commenterId, setCommenterId] = useState(
-    parseInt(localStorage.getItem("userID"))
+console.log(comments);
+const [comment, setComment] = useState("");
+const [videoId, setVideoId] = useState(videoInfo.id);
+const [commenterId, setCommenterId] = useState(
+  parseInt(localStorage.getItem("userID"))
   );
+  console.log(token);
   const [message, setMessage] = useState("");
-
+  
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   let result = parseInt(location.pathname.slice(7));
-
+  
   //=============getVideoById============================//
   const getVideoById = async (id) => {
     await axios
-      .get(`http://localhost:5000/video/id?id=${id}`)
+    .get(`http://localhost:5000/video/id?id=${id}`)
       .then(async (result) => {
         await dispatch(setVideoInfo({ ...result.data.result }));
         console.log(...result.data.result);
@@ -72,8 +74,9 @@ const VideoDetails = () => {
         video_id: videoId,
         commentr_id: commenterId,
       };
+      console.log(addComment);
       const result = await axios.post(
-        "http://localhost:5000/video/",
+        "http://localhost:5000/comment/",
         addComment,
         {
           headers: {
@@ -110,6 +113,17 @@ const VideoDetails = () => {
         {videoInfo.firstName} {videoInfo.lastName}
       </h2>
       <h2>{videoInfo.descriptions}</h2>
+      <input
+        type="text"
+        placeholder="COMMENT"
+        onChange={(e) => setComment(e.target.value)}
+      />
+      <button
+        onClick={() => {
+          addComment();
+        }}>
+        ADD COMMENT
+      </button>
     </div>
   );
 };
