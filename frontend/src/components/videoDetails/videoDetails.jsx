@@ -4,42 +4,42 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   setVideoInfo,
+} from "../../reducer/videoInfo/index";
+import {
   setComments,
   addComment,
   updateComment,
   deleteComment,
-} from "../../reducer/videoInfo/index";
+} from "../../reducer/comments/index";
 import axios from "axios";
 
 const VideoDetails = () => {
   const { videoInfo, token, comments } = useSelector((state) => {
     return {
       videoInfo: state.videoInfoReducer.videoInfo,
-      comments: state.videoInfoReducer.comments,
+      comments: state.commentReducer.comments,
       token: state.loginReducer.token,
     };
   });
-console.log(comments);
-const [comment, setComment] = useState("");
-const [videoId, setVideoId] = useState(videoInfo.id);
-const [commenterId, setCommenterId] = useState(
-  parseInt(localStorage.getItem("userID"))
+
+  const [comment, setComment] = useState("");
+  const [videoId, setVideoId] = useState(videoInfo.id);
+  const [commenterId, setCommenterId] = useState(
+    parseInt(localStorage.getItem("userID"))
   );
-  console.log(localStorage.getItem("token"));
   const [message, setMessage] = useState("");
-  
+
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   let result = parseInt(location.pathname.slice(7));
-  
+
   //=============getVideoById============================//
   const getVideoById = async (id) => {
     await axios
-    .get(`http://localhost:5000/video/id?id=${id}`)
+      .get(`http://localhost:5000/video/id?id=${id}`)
       .then(async (result) => {
         await dispatch(setVideoInfo({ ...result.data.result }));
-        console.log(...result.data.result);
       })
       .catch((err) => {
         console.log(err);
@@ -47,7 +47,7 @@ const [commenterId, setCommenterId] = useState(
   };
 
   //=============getAllComments============================//
-  const getAllComments = async (id) => {
+  const getAllComments = async () => {
     try {
       const res = await axios.get("http://localhost:5000/comment", {
         headers: {
@@ -56,6 +56,7 @@ const [commenterId, setCommenterId] = useState(
       });
       if (res.data.success) {
         dispatch(setComments(res.data.result));
+        console.log(res.data.result);
         setMessage("");
       } else throw Error;
     } catch (error) {

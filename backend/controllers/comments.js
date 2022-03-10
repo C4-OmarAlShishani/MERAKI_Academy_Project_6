@@ -27,7 +27,7 @@ const createNewComment = (req, res) => {
 
 // This function get all items from items
 const getAllComments = (req, res) => {
-  const query = `SELECT users.*, comments.id, comments.*  FROM comments inner JOIN users ON comments.commentr_id = users.id AND comments.is_deleted = 0`;
+  const query = `SELECT * FROM comments `;
   connection.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({
