@@ -12,20 +12,24 @@ import {
 import axios from "axios";
 
 const VideoDetails = () => {
+  const { videoInfo, token } = useSelector((state) => {
+    return {
+      videoInfo: state.videoInfoReducer.videoInfo,
+      token: state.loginReducer.token,
+    };
+  });
 
   const [comment, setComment] = useState("");
-
+  const [videoId, setVideoId] = useState(videoInfo.id);
+  const [commenterId, setCommenterId] = useState(
+    parseInt(localStorage.getItem("userID"))
+  );
+  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   let result = parseInt(location.pathname.slice(7));
-
-  const { videoInfo } = useSelector((state) => {
-    return {
-      videoInfo: state.videoInfoReducer.videoInfo,
-    };
-  });
 
   //=============getVideoById============================//
   const getVideoById = async (id) => {
@@ -59,27 +63,32 @@ const VideoDetails = () => {
       setMessage("Error happened while Get Data, please try again");
     }
   };
-  
+
   //=============addComment============================//
   const addComment = async (id) => {
     try {
       const addComment = {
-     comment
+        comment,
+        video_id: videoId,
+        commentr_id: commenterId,
       };
-      const result = await axios.post("http://localhost:5000/video/", item, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const result = await axios.post(
+        "http://localhost:5000/video/",
+        addComment,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (result.data.success) {
-        setStatus(true);
-        dispatch(addVideo({ title, descriptions, video, album_id, user_id }));
+        dispatch(
+          addComment({ comment, video_id: videoId, commentr_id: commenterId })
+        );
         console.log("The item has been created successfully");
-        
       }
     } catch (error) {
       if (!error.response.data.success) {
-        setStatus(false);
         console.log(error.response.data.message);
       }
     }
