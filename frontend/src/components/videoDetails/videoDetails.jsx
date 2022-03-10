@@ -2,10 +2,20 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setVideoInfo } from "../../reducer/videoInfo/index";
+import {
+  setVideoInfo,
+  setComments,
+  addComment,
+  updateComment,
+  deleteComment,
+} from "../../reducer/videoInfo/index";
 import axios from "axios";
 
 const VideoDetails = () => {
+
+  const [comment, setComment] = useState("");
+
+
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -17,6 +27,7 @@ const VideoDetails = () => {
     };
   });
 
+  //=============getVideoById============================//
   const getVideoById = async (id) => {
     await axios
       .get(`http://localhost:5000/video/id?id=${id}`)
@@ -29,8 +40,54 @@ const VideoDetails = () => {
       });
   };
 
+  //=============getAllComments============================//
+  const getAllComments = async (id) => {
+    try {
+      const res = await axios.get("http://localhost:5000/comment", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.data.success) {
+        dispatch(setComments(res.data.result));
+        setMessage("");
+      } else throw Error;
+    } catch (error) {
+      if (!error.response.data.success) {
+        return setMessage(error.response.data.message);
+      }
+      setMessage("Error happened while Get Data, please try again");
+    }
+  };
+  
+  //=============addComment============================//
+  const addComment = async (id) => {
+    try {
+      const addComment = {
+     comment
+      };
+      const result = await axios.post("http://localhost:5000/video/", item, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (result.data.success) {
+        setStatus(true);
+        dispatch(addVideo({ title, descriptions, video, album_id, user_id }));
+        console.log("The item has been created successfully");
+        
+      }
+    } catch (error) {
+      if (!error.response.data.success) {
+        setStatus(false);
+        console.log(error.response.data.message);
+      }
+    }
+  };
+
   useEffect(() => {
     getVideoById(result);
+    getAllComments();
   }, []);
 
   return (
@@ -43,8 +100,7 @@ const VideoDetails = () => {
       <h2>
         {videoInfo.firstName} {videoInfo.lastName}
       </h2>
-      <h2>
-        {videoInfo.descriptions}</h2>
+      <h2>{videoInfo.descriptions}</h2>
     </div>
   );
 };
