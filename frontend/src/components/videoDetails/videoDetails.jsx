@@ -67,12 +67,12 @@ const [commenterId, setCommenterId] = useState(
   };
 
   //=============addComment============================//
-  const addComment = async (id) => {
+  const addComment = async () => {
     try {
       const addComment = {
         comment,
         video_id: videoId,
-        commentr_id: commenterId,
+        commentr_id: 1,
       };
       console.log(addComment);
       const result = await axios.post(
