@@ -4,11 +4,10 @@ const connection = require("../database/db");
 
 // This function create new item
 const createNewComment = (req, res) => {
-  const { comment, video_id, commentr_id } =
-    req.body;
+  const { comment, video_id, commentr_id } = req.body;
 
   const query = `INSERT INTO comments (comment, video_id, commentr_id) VALUE (?,?,?)`;
-  const data = [comment, video_id, commentr_id ];
+  const data = [comment, video_id, commentr_id];
   connection.query(query, data, (err, result) => {
     if (err) {
       return res.status(500).json({
@@ -28,7 +27,7 @@ const createNewComment = (req, res) => {
 
 // This function get all items from items
 const getAllComments = (req, res) => {
-  const query = `SELECT users.*, videos.id, videos.*  FROM videos LEFT JOIN users ON videos.user_id = users.id `;
+  const query = `SELECT users.*, comments.id, comments.*  FROM comments inner JOIN users ON comments.commentr_id = users.id AND comments.is_deleted = 0`;
   connection.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({
@@ -52,10 +51,10 @@ const getAllComments = (req, res) => {
 // // =================================================== // done
 
 // This function delete Item By Id
-const deleteVideoById = (req, res) => {
+const deleteCommentById = (req, res) => {
   const { id } = req.params;
 
-  const query = `UPDATE videos SET is_deleted = 1 WHERE id=?`;
+  const query = `UPDATE comments SET is_deleted = 1 WHERE id=?`;
   const data = [id];
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -74,10 +73,10 @@ const deleteVideoById = (req, res) => {
 
 // =================================================== // done
 // This function get Item By Id
-const getVideoById = (req, res) => {
+const getCommentById = (req, res) => {
   let { id } = req.query;
 
-  const query = `SELECT users.*, videos.id, videos.*  FROM videos inner JOIN users ON videos.id = ?  AND videos.user_id = users.id`;
+  const query = `SELECT * FROM Comments WHERE id=? AND is_deleted=0`;
 
   const data = [id];
   connection.query(query, data, (err, result) => {
@@ -97,23 +96,13 @@ const getVideoById = (req, res) => {
 
 // // =================================================== // done
 // This function to update item by id.
-const updateVideoById = (req, res) => {
-  const { title, descriptions, album_id, video, user_id, starterImage } =
+const updateCommentById = (req, res) => {
+  const { comment} =
     req.body;
   const id = req.params.id;
-  const query = `UPDATE videos SET video= IF(${
-    video != ""
-  }, ?, video), title= IF(${title != ""}, ?, title), descriptions=IF(${
-    descriptions != ""
-  }, ?, descriptions) , album_id = IF(${
-    album_id != ""
-  }, ?, album_id) , user_id= IF(${
-    user_id != ""
-  }, ?, user_id), starterImage= IF(${
-    starterImage != ""
-  }, ?, starterImage) WHERE id=?;`;
+  const query = `UPDATE comments SET comment= IF(${comment != ""}, ?, title)) WHERE id=?;`;
 
-  const data = [image, title, descriptions, category, price, starterImage, id];
+  const data = [ title];
 
   connection.query(query, data, (err, results) => {
     if (err) {
@@ -142,9 +131,9 @@ const updateVideoById = (req, res) => {
 // // =================================================== // done
 
 module.exports = {
-  createNewVideo,
-  getAllVideos,
-  deleteVideoById,
-  getVideoById,
-  updateVideoById,
+  createNewComment,
+  getAllComments,
+  deleteCommentById,
+  getCommentById,
+  updateCommentById,
 };

@@ -116,7 +116,7 @@ const updateVideoById = (req, res) => {
     starterImage != ""
   }, ?, starterImage) WHERE id=?;`;
 
-  const data = [image, title, descriptions, category, price, starterImage, id];
+  const data = [title, descriptions, album_id, video, user_id, starterImage, id];
 
   connection.query(query, data, (err, results) => {
     if (err) {

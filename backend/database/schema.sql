@@ -75,6 +75,7 @@ CREATE TABLE comments (
     PRIMARY KEY (id),
     FOREIGN KEY (video_id) REFERENCES videos (id),
     FOREIGN KEY (commentr_id) REFERENCES users (id)
+    is_deleted TINYINT DEFAULT 0
 );
 
 -- ============================ // done 
