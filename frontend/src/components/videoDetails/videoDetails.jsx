@@ -25,7 +25,7 @@ const [videoId, setVideoId] = useState(videoInfo.id);
 const [commenterId, setCommenterId] = useState(
   parseInt(localStorage.getItem("userID"))
   );
-  console.log(token);
+  console.log(localStorage.getItem("token"));
   const [message, setMessage] = useState("");
   
   const navigate = useNavigate();

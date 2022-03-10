@@ -22,7 +22,7 @@ const MainPage = () => {
       categories: state.videosReducer.categories,
     };
   });
-
+console.log(token);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();

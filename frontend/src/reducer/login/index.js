@@ -1,7 +1,7 @@
 /** @format */
 
 const initialState = {
-  token: localStorage.getItem("token") ? localStorage.getItem("token") : "",
+  token: localStorage.getItem("token") ? localStorage.getItem("token") : localStorage.getItem("token"),
   isLoggedIn: !localStorage.getItem("token") ? false : true,
   isAdmin: !localStorage.getItem("isAdmin") ? false : true,
 };

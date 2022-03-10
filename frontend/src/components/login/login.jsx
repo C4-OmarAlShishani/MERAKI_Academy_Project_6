@@ -7,7 +7,6 @@ import "./login.css";
 import { logIn, isAdmin } from "../../reducer/login/index";
 import jwt from "jwt-decode";
 
-
 import { useDispatch } from "react-redux";
 
 const Login = (message) => {
@@ -38,7 +37,6 @@ const Login = (message) => {
             navigate(`/add`);
           }
           dispatch(logIn(result.data.token));
-          console.log(result.data.token);
         }
       })
       .catch((err) => {
