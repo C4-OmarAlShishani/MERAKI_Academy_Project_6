@@ -94,6 +94,29 @@ const getCommentById = (req, res) => {
   });
 };
 
+// =================================================== // done
+// This function get Item By Id
+const getCommentByVideoId = (req, res) => {
+  let { id } = req.query;
+
+  // const query = `SELECT * FROM Comments WHERE video_id=?`;
+  const query = `SELECT *  FROM Comments inner JOIN users ON Comments.video_id = ?  AND Comments.commentr_id = users.id`;
+
+  const data = [id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: ` No Comment with id ${id}`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `Succeeded to get Comment with id ${id}`,
+      result: result,
+    });
+  });
+};
 // // =================================================== // done
 // This function to update item by id.
 const updateCommentById = (req, res) => {
@@ -135,5 +158,6 @@ module.exports = {
   getAllComments,
   deleteCommentById,
   getCommentById,
+  getCommentByVideoId,
   updateCommentById,
 };

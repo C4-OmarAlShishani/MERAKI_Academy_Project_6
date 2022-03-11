@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  setVideoInfo,
-} from "../../reducer/videoInfo/index";
+import { setVideoInfo } from "../../reducer/videoInfo/index";
 import {
   setComments,
   addComment,
@@ -14,25 +12,27 @@ import {
 import axios from "axios";
 
 const VideoDetails = () => {
-  const { videoInfo, token, comments } = useSelector((state) => {
+  const { videoInfo, token, comments, isLoggedIn } = useSelector((state) => {
     return {
       videoInfo: state.videoInfoReducer.videoInfo,
       comments: state.commentReducer.comments,
       token: state.loginReducer.token,
+      isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
+  console.log(isLoggedIn);
+  const location = useLocation();
+  const dispatch = useDispatch();
+  let result = parseInt(location.pathname.slice(7));
 
   const [comment, setComment] = useState("");
-  const [videoId, setVideoId] = useState(videoInfo.id);
+  const [videoId, setVideoId] = useState(result);
   const [commenterId, setCommenterId] = useState(
     parseInt(localStorage.getItem("userID"))
   );
   const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const dispatch = useDispatch();
-  let result = parseInt(location.pathname.slice(7));
 
   //=============getVideoById============================//
   const getVideoById = async (id) => {
@@ -49,11 +49,14 @@ const VideoDetails = () => {
   //=============getAllComments============================//
   const getAllComments = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/comment", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.get(
+        `http://localhost:5000/comment/vid?id=${result}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (res.data.success) {
         dispatch(setComments(res.data.result));
         console.log(res.data.result);
@@ -114,17 +117,32 @@ const VideoDetails = () => {
         {videoInfo.firstName} {videoInfo.lastName}
       </h2>
       <h2>{videoInfo.descriptions}</h2>
-      <input
-        type="text"
-        placeholder="COMMENT"
-        onChange={(e) => setComment(e.target.value)}
-      />
-      <button
-        onClick={() => {
-          addComment();
-        }}>
-        ADD COMMENT
-      </button>
+      {isLoggedIn ? (
+        <>
+          <input
+            type="text"
+            placeholder="COMMENT"
+            onChange={(e) => setComment(e.target.value)}
+          />
+          <button
+            onClick={() => {
+              addComment();
+            }}>
+            ADD COMMENT
+          </button>
+        </>
+      ) : null}
+      {comments.map((comment) => {
+        return (
+          <div className="comment">
+            <h5>
+              {comment.firstName} {comment.lastName}
+            </h5>
+            <img src={comment.image} />
+            <p>{comment.comment}</p>
+          </div>
+        );
+      })}
     </div>
   );
 };

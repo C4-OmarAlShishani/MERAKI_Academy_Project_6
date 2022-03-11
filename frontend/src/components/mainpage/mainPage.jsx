@@ -22,7 +22,7 @@ const MainPage = () => {
       categories: state.videosReducer.categories,
     };
   });
-console.log(token);
+  console.log(token);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -106,20 +106,24 @@ console.log(token);
   //   });
 
   return (
-    <div className="mainPage">
-      <div className="videos">
-        <h1>Hallo Main</h1>
-        {videos.map((item, index) => {
-          return (
-            <div className="container ">
+    <section className="py-3">
+    <div className="container">
+    <div className="row text-center">
+      <h1>Hallo Main</h1>
+      {videos.map((item, index) => {
+        return (
+          <div className="col-lg-4">
+            <div className="card bg-light text-dark mb-3">
               <div className="videoBox">
                 {item.video ? (
                   <video
+                  className="card-body"
                     id={item.id}
                     onClick={(e) => {
                       getVideoById(e.target.id);
                     }}
-                    style={{ width: "400px" }}>
+                    style={{ width: "18rem" }}
+                    >
                     <source
                       src={item.video}
                       type="video/mp4; codecs=avc1.4d002a"
@@ -150,10 +154,12 @@ console.log(token);
                 </button> */}
               </div>
             </div>
-          );
-        })}
-      </div>
+          </div>
+        );
+      })}
     </div>
+    </div>
+    </section>
   );
 };
 //  <div class="card" style="width: 18rem;">

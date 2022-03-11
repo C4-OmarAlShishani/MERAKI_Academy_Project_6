@@ -12,29 +12,51 @@ const NavBar = () => {
   });
 
   return (
-    <nav className="navbar navbar-light bg-light">
-      <div className="container-fluid">
-        <a className="navbar-brand">Navbar</a>
-        <form className="d-flex">
+    <nav className="navbar navbar-expand-md ">
+      <div className="container">
+        <Link to="/" className="navbar-brand ">WATCH BOX</Link>
+        <form className="d-flex justify-content-center col-6">
           <input
-            className="form-control me-2"
+            className="form-control "
             type="search"
-            placeholder="Search"
+            placeholder="&#xF607;Search"
             aria-label="Search"
           />
           <button className="btn btn-outline-success" type="submit">
-            Search
+          &#xF52A;
           </button>
-          <button
-            className="btn btn-outline-success"
-            onClick={localStorage.clear()}>
-            Signout
-          </button>
-
-          <>
-            <Link to="/singUp">Singup</Link>
-            <Link to="/login">login</Link>
-          </>
+        </form>
+        <form className="d-flex justify-content-center">
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav">
+            <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/add"
+                  >
+                  +
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/singUp">
+                  Singup
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/login">
+                  login
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/"
+                  onClick={localStorage.clear()}>
+                  Signout
+                </Link>
+              </li>
+            </ul>
+          </div>
         </form>
       </div>
     </nav>
