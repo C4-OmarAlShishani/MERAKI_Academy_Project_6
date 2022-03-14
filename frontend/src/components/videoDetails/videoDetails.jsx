@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setVideoInfo } from "../../reducer/videoInfo/index";
+import { setVideoInfo,updateVideoInfo } from "../../reducer/videoInfo/index";
 import {
   setComments,
   addComment,
@@ -37,17 +37,18 @@ const VideoDetails = () => {
   //=============getVideoById============================//
   const getVideoById = async (id) => {
     await axios
+    .put(`http://localhost:5000/video/${id}`)
+    .then(async (result) => {
+console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    await axios
       .get(`http://localhost:5000/video/id?id=${id}`)
       .then(async (result) => {
         await dispatch(setVideoInfo({ ...result.data.result }));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      await axios
-      .put(`http://localhost:5000/video/${id}`)
-      .then(async (result) => {
-        await dispatch(setVideoInfo({ ...result.data.result }));
+
       })
       .catch((err) => {
         console.log(err);
