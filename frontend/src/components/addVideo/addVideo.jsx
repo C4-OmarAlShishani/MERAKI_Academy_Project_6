@@ -44,6 +44,7 @@ const AddVideo = () => {
 
     formData.append("file", video);
     formData.append("upload_preset", "addVideo");
+    console.log(formData);
     axios
       .post(`https://api.cloudinary.com/v1_1/omar-alshishani/video/upload/`, formData)
       .then(async(res) => {

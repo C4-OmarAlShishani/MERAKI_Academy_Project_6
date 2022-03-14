@@ -6,8 +6,8 @@ const connection = require("../database/db");
 const createNewVideo = (req, res) => {
   const { title, descriptions, album_id, video, user_id, starterImage } =
     req.body;
-
-  const query = `INSERT INTO videos (title, descriptions,album_id, video, user_id,starterImage) VALUE (?,?,?,?,?,?)`;
+  let today = new Date().toISOString().slice(0, 10);
+  const query = `INSERT INTO videos (title, descriptions,album_id, video, user_id ,starterImage ,dateToday) VALUE (?,?,?,?,?,?,${today})`;
   const data = [title, descriptions, album_id, video, user_id, starterImage];
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -96,6 +96,21 @@ const getVideoById = (req, res) => {
       result: result,
     });
   });
+  const query2 = `UPDATE videos SET showVideo =showVideo+ 1 WHERE id=?`;
+  const data2 = [id];
+  connection.query(query2, data2, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: ` No video with id ${id}`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `Succeeded to show video with id ${id}`,
+      result: result,
+    });
+  });
 };
 
 // // =================================================== // done
@@ -116,7 +131,15 @@ const updateVideoById = (req, res) => {
     starterImage != ""
   }, ?, starterImage) WHERE id=?;`;
 
-  const data = [title, descriptions, album_id, video, user_id, starterImage, id];
+  const data = [
+    title,
+    descriptions,
+    album_id,
+    video,
+    user_id,
+    starterImage,
+    id,
+  ];
 
   connection.query(query, data, (err, results) => {
     if (err) {

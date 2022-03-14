@@ -104,14 +104,15 @@ const VideoDetails = () => {
   useEffect(() => {
     getVideoById(result);
     getAllComments();
-  }, []);
+  }, [setComment]);
 
   return (
     <div className="videoDetails">
       <h1>VideoDetails</h1>
-      <video controls style={{ width: "800px" }}>
+      {/* <video controls style={{ width: "800px" }}>
         <source src={videoInfo.video} type="video/mp4; codecs=avc1.4d002a" />
-      </video>
+      </video> */}
+      <iframe allowFullScreen={true} src={videoInfo.video} width="800px" height="450px"></iframe>
       <h2>{videoInfo.title}</h2>
       <h2>
         {videoInfo.firstName} {videoInfo.lastName}

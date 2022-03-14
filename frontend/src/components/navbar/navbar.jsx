@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 import { useSelector } from "react-redux";
+import { AiOutlineSearch } from 'react-icons/ai';
 
 const NavBar = () => {
   const { isLoggedIn } = useSelector((state) => {
@@ -12,18 +13,18 @@ const NavBar = () => {
   });
 
   return (
-    <nav className="navbar navbar-expand-md ">
+    <nav className="navbar navbar-expand-md border-bottom">
       <div className="container">
         <Link to="/" className="navbar-brand ">WATCH BOX</Link>
         <form className="d-flex justify-content-center col-6">
           <input
             className="form-control "
             type="search"
-            placeholder="&#xF607;Search"
+            placeholder="Search"
             aria-label="Search"
           />
           <button className="btn btn-outline-success" type="submit">
-          &#xF52A;
+          <AiOutlineSearch/>
           </button>
         </form>
         <form className="d-flex justify-content-center">

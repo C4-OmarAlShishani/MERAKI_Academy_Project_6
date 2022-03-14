@@ -11,14 +11,30 @@ const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [image, setImage] = useState("");
+  const [imageURL, setImageURL] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [done, setDone] = useState(false);
 
-  const createUser = async (e) => {
-    e.preventDefault();
+  const uploadImage = () => {
+    console.log(imageURL);
+    const formData = new FormData();
 
+    formData.append("file", imageURL);
+    console.log(formData);
+    formData.append("upload_preset", "b7ydl0sx");
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/omar-alshishani/Image/upload/`,
+        formData
+      )
+      .then((res) => {
+        console.log(res);
+        // await createUser(res.data.secure_url);
+      });
+  };
+
+  const createUser = async (url) => {
     if (!firstName || !lastName || !email || !password || !repeatPassword) {
       console.log("please fill in all inputs");
     } else if (repeatPassword === password) {
@@ -27,7 +43,7 @@ const SignUp = () => {
           firstName,
           lastName,
           email: email.toLowerCase(),
-          image,
+          image: url,
           password,
           role_id: 2,
         })
@@ -38,7 +54,7 @@ const SignUp = () => {
           setRepeatPassword("");
           setEmail("");
           setPassword("");
-          setImage("");
+          setImageURL("");
           setDone(true);
           navigate("/login");
         })
@@ -52,7 +68,7 @@ const SignUp = () => {
   return (
     <div className="signUp">
       <div className="group">
-        <form onSubmit={createUser}>
+
           <input
             onChange={(e) => {
               setFirstName(e.target.value);
@@ -95,8 +111,18 @@ const SignUp = () => {
             type="Password"
             placeholder="Repeat password"
           />
-          <button>Register</button>
-        </form>
+          <input
+            type="file"
+            onChange={(e) => {
+              setImageURL(e.target.files[0]);
+            }}
+          />
+        <button
+          onClick={() => {
+            uploadImage();
+          }}>
+          Register
+        </button>
       </div>
     </div>
   );
