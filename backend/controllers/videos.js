@@ -96,21 +96,7 @@ const getVideoById = (req, res) => {
       result: result,
     });
   });
-  const query2 = `UPDATE videos SET showVideo =showVideo+ 1 WHERE id=?`;
-  const data2 = [id];
-  connection.query(query2, data2, (err, result) => {
-    if (err) {
-      return res.status(500).json({
-        success: false,
-        message: ` No video with id ${id}`,
-      });
-    }
-    res.status(200).json({
-      success: true,
-      message: `Succeeded to show video with id ${id}`,
-      result: result,
-    });
-  });
+
 };
 
 // // =================================================== // done
@@ -165,6 +151,26 @@ const updateVideoById = (req, res) => {
   });
 };
 
+const videoViews = (req, res) => {
+  const { id } = req.params;
+
+const query = `UPDATE videos SET showVideo =showVideo+ 1 WHERE id=?`;
+const data = [id];
+connection.query(query, data, (err, result) => {
+  if (err) {
+    return res.status(500).json({
+      success: false,
+      message: ` No video with id ${id}`,
+    });
+  }
+  res.status(200).json({
+    success: true,
+    message: `Succeeded to show video with id ${id}`,
+    result: result,
+  });
+});
+};
+
 // // =================================================== // done
 
 module.exports = {
@@ -173,4 +179,5 @@ module.exports = {
   deleteVideoById,
   getVideoById,
   updateVideoById,
+  videoViews
 };

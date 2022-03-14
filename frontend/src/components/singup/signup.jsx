@@ -17,21 +17,31 @@ const SignUp = () => {
   const [done, setDone] = useState(false);
 
   const uploadImage = () => {
-    console.log(imageURL);
-    const formData = new FormData();
+    // console.log(imageURL);
+    // const formData = new FormData();
 
-    formData.append("file", imageURL);
-    console.log(formData);
-    formData.append("upload_preset", "b7ydl0sx");
-    axios
-      .post(
-        `https://api.cloudinary.com/v1_1/omar-alshishani/Image/upload/`,
-        formData
-      )
-      .then((res) => {
-        console.log(res);
-        // await createUser(res.data.secure_url);
-      });
+    // formData.append("file", imageURL);
+    // console.log(formData);
+    // formData.append("upload_preset", "b7ydl0sx");
+    // axios
+    //   .post(
+    //     `https://api.cloudinary.com/v1_1/omar-alshishani/Image/upload/`,
+    //     formData
+    //   )
+    //   .then((res) => {
+    //     console.log(res);
+    //     // await createUser(res.data.secure_url);
+    //   });
+      const formData = new FormData();
+
+      formData.append("file", imageURL);
+      formData.append("upload_preset", "b7ydl0sx");
+      axios
+        .post(`https://api.cloudinary.com/v1_1/omar-alshishani/image/upload/`, formData)
+        .then(async(res) => {
+          // await setImageURL(res.data.secure_url);
+          createUser(res.data.secure_url);
+        });
   };
 
   const createUser = async (url) => {

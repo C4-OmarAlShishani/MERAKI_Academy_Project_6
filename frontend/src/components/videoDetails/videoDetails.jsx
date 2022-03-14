@@ -44,6 +44,14 @@ const VideoDetails = () => {
       .catch((err) => {
         console.log(err);
       });
+      await axios
+      .put(`http://localhost:5000/video/${id}`)
+      .then(async (result) => {
+        await dispatch(setVideoInfo({ ...result.data.result }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   //=============getAllComments============================//
