@@ -1,5 +1,5 @@
 /** @format */
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./navbar.css";
@@ -7,9 +7,14 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { setVideos, setCategories } from "../../reducer/video/index";
 import { logOut } from "../../reducer/login/index";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+
+  const [searchValue, setSearchValue] = useState("");
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { isLoggedIn, token } = useSelector((state) => {
     return {
@@ -53,10 +58,10 @@ const NavBar = () => {
             placeholder="Search"
             aria-label="Search"
             onChange={(e) => {
-              getFilteredItems(`%${e.target.value}%`);
+              setSearchValue(`%${e.target.value}%`);
             }}
           />
-          <button className="btn btn-outline-success" type="submit">
+          <button className="btn btn-outline-success" onClick={()=>getFilteredItems()}>
             <AiOutlineSearch />
           </button>
         </form>
@@ -84,7 +89,7 @@ const NavBar = () => {
                 <Link
                   className="nav-link"
                   to="/"
-                  onClick={()=>dispatch(logOut())}>
+                  onClick={() => dispatch(logOut())}>
                   Signout
                 </Link>
               </li>
