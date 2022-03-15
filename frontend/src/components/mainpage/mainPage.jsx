@@ -104,12 +104,12 @@ const MainPage = () => {
   };
   const videoMap = videos.slice(pgVS, pgVS + itemsPerPg).map((item, index) => {
     return (
-      <div className="col-lg-4">
-        <div className="card bg-light text-dark mb-3">
+    
+        <div className="videoCard">
           <div className="videoBox">
             {item.video ? (
               <video
-                className="card-body"
+                className="body"
                 id={item.id}
                 onClick={(e) => {
                   getVideoById(e.target.id);
@@ -125,22 +125,20 @@ const MainPage = () => {
           <div className="userInfo">
             <p>
               {item.image ? (
-                <img src={item.image} alt={item.firstName} />
+                <img src={item.image} alt={item.firstName} style={{width:"50px", height:"50px" }}/>
               ) : null}
               {item.firstName + " " + item.lastName}
             </p>
           </div>
           <div className="btn"></div>
         </div>
-      </div>
     );
   });
 
   return (
-    <section className="py-3">
-      <div className="container">
-        <div className="row text-center">
-          <h1>Hallo Main</h1>
+    <div className="mainPage">
+      
+        <div className="cardsGroup">
           {videoMap}
         </div>
         <PaginateReact
@@ -152,8 +150,7 @@ const MainPage = () => {
           disabledClassName={" paginationDisabled "}
           activeClassName={" paginationActive "}
         />
-      </div>
-    </section>
+    </div>
   );
 };
 
