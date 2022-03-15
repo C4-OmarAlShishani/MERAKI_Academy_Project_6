@@ -1,8 +1,10 @@
-.cardsGroup{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-    margin-bottom: 5%;
+/** @format */
+
+.cardsGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  gap: 1%;
 }

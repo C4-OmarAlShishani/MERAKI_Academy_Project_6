@@ -104,6 +104,7 @@ const VideoDetails = () => {
         dispatch(
           addComment({ comment, video_id: videoId, commentr_id: commenterId })
         );
+        setMessage(2);
         console.log("The item has been created successfully");
       }
     } catch (error) {
