@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setVideoInfo, updateVideoInfo } from "../../reducer/videoInfo/index";
+import { BiLike } from "react-icons/bi";
+
 import {
   setComments,
   addComment,
@@ -109,6 +111,19 @@ console.log(videoInfo);
     }
   };
 
+  //=============addLike============================//
+
+  const addLike = async (id) => {
+    await axios
+      .put(`http://localhost:5000/video/like/${id}`)
+      .then(async (result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });}
+
+
   useEffect(() => {
     getVideoById(result);
     getAllComments();
@@ -130,6 +145,7 @@ console.log(videoInfo);
         {videoInfo.firstName} {videoInfo.lastName}
       </h2>
       <h2>{videoInfo.descriptions}</h2>
+      <BiLike onClick={()=>{addLike(result)}} style={{width:"50px",height:"50px"}}/>
       {isLoggedIn ? (
         <>
           <input

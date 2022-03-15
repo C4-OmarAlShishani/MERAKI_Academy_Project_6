@@ -150,6 +150,7 @@ const updateVideoById = (req, res) => {
     });
   });
 };
+// // =================================================== // done
 
 const videoViews = (req, res) => {
   const { id } = req.params;
@@ -171,7 +172,47 @@ connection.query(query, data, (err, result) => {
 });
 };
 
+// // =================================================== // done
 
+const addLike = (req, res) => {
+  const { id } = req.params;
+
+const query = `UPDATE videos SET likes =likes + 1 WHERE id=?`;
+const data = [id];
+connection.query(query, data, (err, result) => {
+  if (err) {
+    return res.status(500).json({
+      success: false,
+      message: ` No video with id ${id}`,
+    });
+  }
+  res.status(200).json({
+    success: true,
+    message: `Succeeded to show video with id ${id}`,
+    result: result,
+  });
+});
+};
+// // =================================================== // done
+const addLike = (req, res) => {
+  const { id } = req.params;
+
+const query = `UPDATE videos SET likes =likes + 1 WHERE id=?`;
+const data = [id];
+connection.query(query, data, (err, result) => {
+  if (err) {
+    return res.status(500).json({
+      success: false,
+      message: ` No video with id ${id}`,
+    });
+  }
+  res.status(200).json({
+    success: true,
+    message: `Succeeded to show video with id ${id}`,
+    result: result,
+  });
+});
+};
 // // =================================================== // done
 // This function get all items like value
 const getFilteredItems = (req, res) => {
@@ -207,5 +248,7 @@ module.exports = {
   getVideoById,
   updateVideoById,
   videoViews,
-  getFilteredItems
+  getFilteredItems,
+  addLike,
+  addDisLike
 };
