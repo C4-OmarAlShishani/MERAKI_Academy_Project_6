@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setVideoInfo,updateVideoInfo } from "../../reducer/videoInfo/index";
+import { setVideoInfo, updateVideoInfo } from "../../reducer/videoInfo/index";
 import {
   setComments,
   addComment,
@@ -37,24 +37,23 @@ const VideoDetails = () => {
   //=============getVideoById============================//
   const getVideoById = async (id) => {
     await axios
-    .put(`http://localhost:5000/video/${id}`)
-    .then(async (result) => {
-console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .put(`http://localhost:5000/video/${id}`)
+      .then(async (result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     await axios
       .get(`http://localhost:5000/video/id?id=${id}`)
       .then(async (result) => {
         await dispatch(setVideoInfo({ ...result.data.result }));
-
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
+console.log(videoInfo);
   //=============getAllComments============================//
   const getAllComments = async () => {
     try {
@@ -121,7 +120,11 @@ console.log(result);
       {/* <video controls style={{ width: "800px" }}>
         <source src={videoInfo.video} type="video/mp4; codecs=avc1.4d002a" />
       </video> */}
-      <iframe allowFullScreen={true} src={videoInfo.video} width="800px" height="450px"></iframe>
+      <iframe
+        allowFullScreen={true}
+        src={videoInfo.video}
+        width="800px"
+        height="450px"></iframe>
       <h2>{videoInfo.title}</h2>
       <h2>
         {videoInfo.firstName} {videoInfo.lastName}

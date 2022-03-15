@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setVideos, setCategories } from "../../reducer/video/index";
 import { setVideoInfo } from "../../reducer/videoInfo/index";
 import { useNavigate } from "react-router-dom";
-import Card from "react-bootstrap/Card";
+import PaginateReact from "react-paginate";
 
 //===============================================================
 
@@ -30,6 +30,7 @@ const MainPage = () => {
   const [message, setMessage] = useState("");
   const [userId, setUserId] = useState("");
   const [categoryId, setCategoryId] = useState(1);
+  const [pgNum, setPgNum] = useState(0);
 
   //===============================================================
 
@@ -90,85 +91,72 @@ const MainPage = () => {
       });
   };
   //===============================================================
+ 
+  //===============================================================
 
-  //   let categoriesMap = categories.map((category, indx) => {
-  //     return (
-  //       <>
-  //         <li
-  //           id={category.id}
-  //           onClick={(e) => {
-  //             setCategoryId(parseInt(e.target.id));
-  //           }}>
-  //           {category.category}
-  //         </li>
-  //       </>
-  //     );
-  //   });
+  const itemsPerPg = 12;
+  const pgVS = pgNum * itemsPerPg;
+  const pageCount = Math.ceil(videos.length / itemsPerPg);
+  const changePage = ({ selected }) => {
+    setPgNum(selected);
+  };
+  const videoMap= videos.slice(pgVS, pgVS + itemsPerPg).map((item, index) => {
+    return (
+      <div className="col-lg-4">
+        <div className="card bg-light text-dark mb-3">
+          <div className="videoBox">
+            {item.video ? (
+              <video
+                className="card-body"
+                id={item.id}
+                onClick={(e) => {
+                  getVideoById(e.target.id);
+                }}
+                style={{ width: "18rem" }}>
+                <source
+                  src={item.video}
+                  type="video/mp4; codecs=avc1.4d002a"
+                />
+              </video>
+            ) : null}
+          </div>
+          <div className="title">
+            <p>{item.title}</p>
+          </div>
+          <div className="userInfo">
+            <p>
+              {item.image ? (
+                <img src={item.image} alt={item.firstName} />
+              ) : null}
+              {item.firstName + " " + item.lastName}
+            </p>
+          </div>
+          <div className="btn">
+          </div>
+        </div>
+      </div>
+    );
+  })
 
   return (
     <section className="py-3">
-    <div className="container">
-    <div className="row text-center">
-      <h1>Hallo Main</h1>
-      {videos.map((item, index) => {
-        return (
-          <div className="col-lg-4">
-            <div className="card bg-light text-dark mb-3">
-              <div className="videoBox">
-                {item.video ? (
-                  <video
-                  className="card-body"
-                    id={item.id}
-                    onClick={(e) => {
-                      getVideoById(e.target.id);
-                    }}
-                    style={{ width: "18rem" }}
-                    >
-                    <source
-                      src={item.video}
-                      type="video/mp4; codecs=avc1.4d002a"
-                    />
-                  </video>
-                ) : null}
-              </div>
-              <div className="title">
-                <p>{item.title}</p>
-              </div>
-              <div className="userInfo">
-                <p>
-                  {item.image ? (
-                    <img src={item.image} alt={item.firstName} />
-                  ) : null}
-                  {item.firstName + " " + item.lastName}
-                </p>
-              </div>
-              <div className="btn">
-                {/* <button
-                  id={item.id}
-                  onClick={(e) => {
-                    console.log(item);
-                    console.log(e.target.id);
-                    getVideoById(e.target.id);
-                  }}>
-                  ITEM DETAILS
-                </button> */}
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-    </div>
+      <div className="container">
+        <div className="row text-center">
+          <h1>Hallo Main</h1>
+          {videoMap}
+        </div>
+        <PaginateReact
+          PreviousLabel={"Previous"}
+          NextLabel={"Next"}
+          pageCount={pageCount}
+          onPageChange={changePage}
+          containerClassName={"pagination_box"}
+          disabledClassName={" paginationDisabled "}
+          activeClassName={" paginationActive "}
+        />
+      </div>
     </section>
   );
 };
-//  <div class="card" style="width: 18rem;">
-// <video src={item.video}></video>
-// <div class="card-body">
-//   <h5 class="card-title">{item.title}</h5>
-//   <p class="card-text"></p>
-//   <a href="#" class="btn btn-primary">Go somewhere</a>
-// </div>
-// </div>
 
 export default MainPage;

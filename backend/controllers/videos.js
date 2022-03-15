@@ -171,6 +171,33 @@ connection.query(query, data, (err, result) => {
 });
 };
 
+
+// // =================================================== // done
+// This function get all items like value
+const getFilteredItems = (req, res) => {
+  const { value } = req.body;
+  const query = `SELECT * FROM videos WHERE items.title LIKE ?;`;
+  const data = [value];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: `Server Error`,
+      });
+    }
+    if (!result) {
+      return res.status(200).json({
+        success: false,
+        message: `No items Yet`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `all the items`,
+      items: result,
+    });
+  });
+};
 // // =================================================== // done
 
 module.exports = {
@@ -179,5 +206,6 @@ module.exports = {
   deleteVideoById,
   getVideoById,
   updateVideoById,
-  videoViews
+  videoViews,
+  getFilteredItems
 };
