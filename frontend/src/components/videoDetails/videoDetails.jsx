@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setVideoInfo, updateVideoInfo } from "../../reducer/videoInfo/index";
-import { BiLike,BiDislike } from "react-icons/bi";
+import { BiLike, BiDislike } from "react-icons/bi";
 
 import {
   setComments,
@@ -32,24 +32,27 @@ const VideoDetails = () => {
   const [commenterId, setCommenterId] = useState(
     parseInt(localStorage.getItem("userID"))
   );
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(0);
 
   const navigate = useNavigate();
 
   //=============getVideoById============================//
   const getVideoById = async (id) => {
     await axios
-      .put(`http://localhost:5000/video/${id}`)
+      .get(`http://localhost:5000/video/id?id=${id}`)
       .then(async (result) => {
-        setMessage("")
+        await dispatch(setVideoInfo({ ...result.data.result }));
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+  //=============view============================//
+  const views = async (id) => {
     await axios
-      .get(`http://localhost:5000/video/id?id=${id}`)
+      .put(`http://localhost:5000/video/${id}`)
       .then(async (result) => {
-        await dispatch(setVideoInfo({ ...result.data.result }));
+        setMessage("");
       })
       .catch((err) => {
         console.log(err);
@@ -116,30 +119,35 @@ const VideoDetails = () => {
     await axios
       .put(`http://localhost:5000/video/like/${id}`)
       .then(async (result) => {
-        setMessage("");
+        setMessage(1);
       })
       .catch((err) => {
         console.log(err);
-      });}
+      });
+  };
 
-       //=============addLike============================//
+  //=============addLike============================//
 
   const addDisLike = async (id) => {
     await axios
       .put(`http://localhost:5000/video/dislike/${id}`)
       .then(async (result) => {
-        setMessage("");
+        setMessage(2);
       })
       .catch((err) => {
         console.log(err);
-      });}
-
+      });
+  };
 
   useEffect(() => {
     getVideoById(result);
     getAllComments();
-  },[]);
-console.log(videoInfo);
+  }, [message]);
+
+  useEffect(() => {
+    views(result);
+  }, []);
+  // console.log(videoInfo);
   return (
     <div className="videoDetails">
       <h1>VideoDetails</h1>
@@ -156,8 +164,23 @@ console.log(videoInfo);
         {videoInfo.firstName} {videoInfo.lastName}
       </h2>
       <h2>{videoInfo.descriptions}</h2>
-      <BiLike onClick={()=>{addLike(result)}} style={{width:"50px",height:"50px"}}/>{videoInfo.likes}
-      <BiDislike onClick={()=>{addDisLike(result)}} style={{width:"50px",height:"50px"}}/>{videoInfo.dislike}
+      <BiLike
+        onClick={() => {
+          addLike(result);
+        }}
+        style={{ width: "50px", height: "50px" }}
+      />
+      {videoInfo.likes}
+      <BiDislike
+        onClick={() => {
+          addDisLike(result);
+        }}
+        style={{ width: "50px", height: "50px" }}
+      />
+      {videoInfo.dislike}
+      <br />
+      {videoInfo.views}
+      {videoInfo.dislike}
       {isLoggedIn ? (
         <>
           <input
