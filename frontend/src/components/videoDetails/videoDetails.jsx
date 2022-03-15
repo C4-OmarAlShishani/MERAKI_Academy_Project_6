@@ -166,14 +166,14 @@ const VideoDetails = () => {
       <h2>{videoInfo.descriptions}</h2>
       <BiLike
         onClick={() => {
-          addLike(result);
+          isLoggedIn ? addLike(result) : navigate("/login");
         }}
         style={{ width: "50px", height: "50px" }}
       />
       {videoInfo.likes}
       <BiDislike
         onClick={() => {
-          addDisLike(result);
+          isLoggedIn ? addDisLike(result) : navigate("/login");
         }}
         style={{ width: "50px", height: "50px" }}
       />
