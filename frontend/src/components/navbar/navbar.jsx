@@ -17,10 +17,10 @@ const NavBar = () => {
       token: state.loginReducer.token,
     };
   });
-  console.log(isLoggedIn);
+
   const getFilteredItems = async (value) => {
     try {
-      const res = await axios.get(
+      const res = await axios.post(
         "http://localhost:5000/video/filter",
         { value },
         {
@@ -31,6 +31,7 @@ const NavBar = () => {
       );
       if (res.data.success) {
         dispatch(setVideos(res.data.result));
+        console.log(res.data.result);
       } else throw Error;
     } catch (error) {
       if (!error.response.data.success) {

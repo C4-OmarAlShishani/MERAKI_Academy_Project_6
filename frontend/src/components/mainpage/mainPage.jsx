@@ -76,7 +76,8 @@ const MainPage = () => {
   //===============================================================
 
   useEffect(() => {
-    getAllVideos();
+    console.log(videos);
+    if (videos.length == 0) getAllVideos();
   }, []);
   //===============================================================
   const getVideoById = async (id) => {
@@ -91,7 +92,7 @@ const MainPage = () => {
       });
   };
   //===============================================================
- 
+
   //===============================================================
 
   const itemsPerPg = 3;
@@ -100,7 +101,7 @@ const MainPage = () => {
   const changePage = ({ selected }) => {
     setPgNum(selected);
   };
-  const videoMap= videos.slice(pgVS, pgVS + itemsPerPg).map((item, index) => {
+  const videoMap = videos.slice(pgVS, pgVS + itemsPerPg).map((item, index) => {
     return (
       <div className="col-lg-4">
         <div className="card bg-light text-dark mb-3">
@@ -113,10 +114,7 @@ const MainPage = () => {
                   getVideoById(e.target.id);
                 }}
                 style={{ width: "18rem" }}>
-                <source
-                  src={item.video}
-                  type="video/mp4; codecs=avc1.4d002a"
-                />
+                <source src={item.video} type="video/mp4; codecs=avc1.4d002a" />
               </video>
             ) : null}
           </div>
@@ -131,12 +129,11 @@ const MainPage = () => {
               {item.firstName + " " + item.lastName}
             </p>
           </div>
-          <div className="btn">
-          </div>
+          <div className="btn"></div>
         </div>
       </div>
     );
-  })
+  });
 
   return (
     <section className="py-3">

@@ -17,7 +17,7 @@ const videoRouter = express.Router();
 
 videoRouter.post("/", createNewVideo);
 videoRouter.get("/", getAllVideos);
-videoRouter.get("/filter", getFilteredItems);
+videoRouter.post("/filter", getFilteredItems);
 videoRouter.get("/id", getVideoById);
 videoRouter.put("/id", updateVideoById);
 videoRouter.delete("/:id", deleteVideoById);
