@@ -179,8 +179,9 @@ const VideoDetails = () => {
       />
       {videoInfo.dislike}
       <br />
-      {videoInfo.views}
-      {videoInfo.dislike}
+      {videoInfo.showVideo}
+      <br />
+      {videoInfo.dateToday}
       {isLoggedIn ? (
         <>
           <input

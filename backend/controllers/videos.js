@@ -6,8 +6,9 @@ const connection = require("../database/db");
 const createNewVideo = (req, res) => {
   const { title, descriptions, album_id, video, user_id, starterImage } =
     req.body;
-  let today = new Date().toISOString().slice(0, 10);
-  const query = `INSERT INTO videos (title, descriptions,album_id, video, user_id ,starterImage ,dateToday) VALUE (?,?,?,?,?,?,${today})`;
+  let day = new Date().toString().slice(0, 10);
+  console.log(day);
+  const query = `INSERT INTO videos (title, descriptions,album_id, video, user_id ,starterImage ,dateToday) VALUE (?,?,?,?,?,?,${day})`;
   const data = [title, descriptions, album_id, video, user_id, starterImage];
   connection.query(query, data, (err, result) => {
     if (err) {

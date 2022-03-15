@@ -7,6 +7,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { addVideo } from "../../reducer/video/index";
 import Select from "react-select";
+import { useNavigate } from "react-router-dom";
 
 //===============================================================
 
@@ -17,8 +18,9 @@ const AddVideo = () => {
       isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
-
+  const navigate = useNavigate();
   const { token, isLoggedIn } = state;
+  isLoggedIn ? null : navigate("/login");
 
   const dispatch = useDispatch();
   //   title, descriptions,album_id, video, user_id
@@ -46,8 +48,11 @@ const AddVideo = () => {
     formData.append("upload_preset", "addVideo");
     console.log(formData);
     axios
-      .post(`https://api.cloudinary.com/v1_1/omar-alshishani/video/upload/`, formData)
-      .then(async(res) => {
+      .post(
+        `https://api.cloudinary.com/v1_1/omar-alshishani/video/upload/`,
+        formData
+      )
+      .then(async (res) => {
         await setVideoURL(res.data.secure_url);
         console.log(res.data.secure_url);
         createNewItem(res.data.secure_url);
@@ -57,7 +62,7 @@ const AddVideo = () => {
   //===============================================================
 
   const createNewItem = async (url) => {
-      console.log(url);
+    console.log(url);
     try {
       const item = {
         title: title,
@@ -75,7 +80,6 @@ const AddVideo = () => {
         setStatus(true);
         dispatch(addVideo({ title, descriptions, video, album_id, user_id }));
         console.log("The item has been created successfully");
-        
       }
     } catch (error) {
       if (!error.response.data.success) {
@@ -88,49 +92,54 @@ const AddVideo = () => {
   //===============================================================
   return (
     <div className="addItemAdmin">
-      <h2>NEW ITEM</h2>
-      <br />
-      <input
-        type="text"
-        placeholder="TITLE"
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <br />
-      <br />
-      <textarea
-        type="text"
-        placeholder="Description"
-        onChange={(e) => setDescriptions(e.target.value)}
-      />
-      <br />
-      <br />
-      <Select
-        onChange={(e) => {
-          setAlbum_id(e.value);
-        }}
-        options={options}
-        placeholder="ALBUM"
-      />
+      {isLoggedIn ? (
+        <>
+          <h2>NEW ITEM</h2>
+          <br />
+          <input
+            type="text"
+            placeholder="TITLE"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <br />
+          <br />
+          <textarea
+            type="text"
+            placeholder="Description"
+            onChange={(e) => setDescriptions(e.target.value)}
+          />
+          <br />
+          <br />
+          <Select
+            onChange={(e) => {
+              setAlbum_id(e.value);
+            }}
+            options={options}
+            placeholder="ALBUM"
+          />
 
-      <input
-        type="file"
-        onChange={(e) => {
-          setVideo(e.target.files[0]);
-        }}
-      />
-      <div className="addItemBTN">
-        <button
-          onClick={() => {
-            uploadImage();
-             
-          }}>
-          Create New item
-        </button>
-        <br />
-        {status
-          ? message && <div className="SuccessMessage">{message}</div>
-          : message && <div className="ErrorMessage">{message}</div>}
-      </div>
+          <input
+            type="file"
+            onChange={(e) => {
+              setVideo(e.target.files[0]);
+            }}
+          />
+          <div className="addItemBTN">
+            <button
+              onClick={() => {
+                uploadImage();
+              }}>
+              Create New item
+            </button>
+            <br />
+            {status
+              ? message && <div className="SuccessMessage">{message}</div>
+              : message && <div className="ErrorMessage">{message}</div>}
+          </div>
+        </>
+      ) : (
+        navigate("/login")
+      )}
     </div>
   );
 };
