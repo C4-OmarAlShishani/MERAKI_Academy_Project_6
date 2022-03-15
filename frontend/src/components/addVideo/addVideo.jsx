@@ -20,8 +20,8 @@ const AddVideo = () => {
   });
   const navigate = useNavigate();
   const { token, isLoggedIn } = state;
-  isLoggedIn ? null : navigate("/login");
-
+  
+  
   const dispatch = useDispatch();
   //   title, descriptions,album_id, video, user_id
   const [title, setTitle] = useState("");
@@ -92,8 +92,7 @@ const AddVideo = () => {
   //===============================================================
   return (
     <div className="addItemAdmin">
-      {isLoggedIn ? (
-        <>
+
           <h2>NEW ITEM</h2>
           <br />
           <input
@@ -136,10 +135,6 @@ const AddVideo = () => {
               ? message && <div className="SuccessMessage">{message}</div>
               : message && <div className="ErrorMessage">{message}</div>}
           </div>
-        </>
-      ) : (
-        navigate("/login")
-      )}
     </div>
   );
 };

@@ -6,6 +6,7 @@ import "./navbar.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { setVideos, setCategories } from "../../reducer/video/index";
+import { logOut } from "../../reducer/login/index";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const NavBar = () => {
       token: state.loginReducer.token,
     };
   });
+  console.log(isLoggedIn);
   const getFilteredItems = async (value) => {
     try {
       const res = await axios.get(
@@ -61,9 +63,11 @@ const NavBar = () => {
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link" to="/add">
-                  +
-                </Link>
+                {isLoggedIn ? (
+                  <Link className="nav-link" to="/add">
+                    +
+                  </Link>
+                ) : null}
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/singUp">
@@ -79,7 +83,7 @@ const NavBar = () => {
                 <Link
                   className="nav-link"
                   to="/"
-                  onClick={localStorage.clear()}>
+                  onClick={()=>dispatch(logOut())}>
                   Signout
                 </Link>
               </li>
