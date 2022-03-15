@@ -36,7 +36,7 @@ const NavBar = () => {
       );
       if (res.data.success) {
         dispatch(setVideos(res.data.result));
-        console.log(res.data.result);
+        navigate("/")
       } else throw Error;
     } catch (error) {
       if (!error.response.data.success) {
@@ -51,7 +51,7 @@ const NavBar = () => {
         <Link to="/" className="navbar-brand ">
           WATCH BOX
         </Link>
-        <form className="d-flex justify-content-center col-6">
+        {/* <form className="d-flex justify-content-center col-6"> */}
           <input
             className="form-control "
             type="search"
@@ -61,10 +61,10 @@ const NavBar = () => {
               setSearchValue(`%${e.target.value}%`);
             }}
           />
-          <button className="btn btn-outline-success" onClick={()=>getFilteredItems()}>
+          <button className="btn btn-outline-success" onClick={()=>getFilteredItems(searchValue)}>
             <AiOutlineSearch />
           </button>
-        </form>
+        {/* </form> */}
         <form className="d-flex justify-content-center">
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav">

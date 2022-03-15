@@ -76,9 +76,10 @@ const MainPage = () => {
   //===============================================================
 
   useEffect(() => {
-    console.log(videos);
-    if (videos.length == 0) getAllVideos();
+    getAllVideos();
+    return dispatch(setVideos([]));
   }, []);
+
   //===============================================================
   const getVideoById = async (id) => {
     await axios

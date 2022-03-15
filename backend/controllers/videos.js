@@ -218,7 +218,6 @@ connection.query(query, data, (err, result) => {
 // This function get all items like value
 const getFilteredItems = (req, res) => {
   const { value } = req.body;
-  console.log(value);
   const query = `SELECT * FROM videos WHERE videos.title LIKE ?;`;
   const data = [value];
   connection.query(query, data, (err, result) => {
