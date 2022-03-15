@@ -194,10 +194,10 @@ connection.query(query, data, (err, result) => {
 });
 };
 // // =================================================== // done
-const addLike = (req, res) => {
+const addDisLike = (req, res) => {
   const { id } = req.params;
 
-const query = `UPDATE videos SET likes =likes + 1 WHERE id=?`;
+const query = `UPDATE videos SET dislike = dislike + 1 WHERE id=?`;
 const data = [id];
 connection.query(query, data, (err, result) => {
   if (err) {

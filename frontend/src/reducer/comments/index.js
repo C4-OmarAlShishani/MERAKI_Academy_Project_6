@@ -8,7 +8,6 @@ const initialState = {
   const commentReducer = (state = initialState, { type, payload }) => {
     switch (type) {
       case "SET_COMMENT":
-          console.log(payload);
         return { ...state, comments: payload };
   
       case "ADD_COMMENT":
@@ -41,7 +40,6 @@ const initialState = {
   // ==========Comments=============  //
   
   export const setComments = (comments) => {
-      console.log(comments);
     return { type: "SET_COMMENT", payload: comments };
   };
   // =======================  //

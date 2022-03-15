@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setVideoInfo, updateVideoInfo } from "../../reducer/videoInfo/index";
-import { BiLike } from "react-icons/bi";
+import { BiLike,BiDislike } from "react-icons/bi";
 
 import {
   setComments,
@@ -22,7 +22,7 @@ const VideoDetails = () => {
       isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
-  console.log(isLoggedIn);
+
   const location = useLocation();
   const dispatch = useDispatch();
   let result = parseInt(location.pathname.slice(7));
@@ -41,7 +41,7 @@ const VideoDetails = () => {
     await axios
       .put(`http://localhost:5000/video/${id}`)
       .then(async (result) => {
-        console.log(result);
+        setMessage("")
       })
       .catch((err) => {
         console.log(err);
@@ -55,7 +55,7 @@ const VideoDetails = () => {
         console.log(err);
       });
   };
-console.log(videoInfo);
+
   //=============getAllComments============================//
   const getAllComments = async () => {
     try {
@@ -69,7 +69,6 @@ console.log(videoInfo);
       );
       if (res.data.success) {
         dispatch(setComments(res.data.result));
-        console.log(res.data.result);
         setMessage("");
       } else throw Error;
     } catch (error) {
@@ -117,7 +116,19 @@ console.log(videoInfo);
     await axios
       .put(`http://localhost:5000/video/like/${id}`)
       .then(async (result) => {
-        console.log(result);
+        setMessage("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });}
+
+       //=============addLike============================//
+
+  const addDisLike = async (id) => {
+    await axios
+      .put(`http://localhost:5000/video/dislike/${id}`)
+      .then(async (result) => {
+        setMessage("");
       })
       .catch((err) => {
         console.log(err);
@@ -127,8 +138,8 @@ console.log(videoInfo);
   useEffect(() => {
     getVideoById(result);
     getAllComments();
-  }, [setComment]);
-
+  },[]);
+console.log(videoInfo);
   return (
     <div className="videoDetails">
       <h1>VideoDetails</h1>
@@ -145,7 +156,8 @@ console.log(videoInfo);
         {videoInfo.firstName} {videoInfo.lastName}
       </h2>
       <h2>{videoInfo.descriptions}</h2>
-      <BiLike onClick={()=>{addLike(result)}} style={{width:"50px",height:"50px"}}/>
+      <BiLike onClick={()=>{addLike(result)}} style={{width:"50px",height:"50px"}}/>{videoInfo.likes}
+      <BiDislike onClick={()=>{addDisLike(result)}} style={{width:"50px",height:"50px"}}/>{videoInfo.dislike}
       {isLoggedIn ? (
         <>
           <input
