@@ -9,7 +9,16 @@
   gap: 3%;
 }
 
+.videoCard{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
+.description{
+  display: flex;
+  justify-content: space-between;
+}
 
 
 
@@ -20,6 +29,7 @@
   list-style: none;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .pagination_box a {
   padding: 10px;

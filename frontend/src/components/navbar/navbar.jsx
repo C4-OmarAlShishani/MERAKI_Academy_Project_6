@@ -51,7 +51,7 @@ const NavBar = () => {
         <Link to="/" className="navbar-brand ">
           WATCH BOX
         </Link>
-        {/* <form className="d-flex justify-content-center col-6"> */}
+        <div className="d-flex justify-content-center col-6">
           <input
             className="form-control "
             type="search"
@@ -64,7 +64,7 @@ const NavBar = () => {
           <button className="btn btn-outline-success" onClick={()=>getFilteredItems(searchValue)}>
             <AiOutlineSearch />
           </button>
-        {/* </form> */}
+        </div>
         <form className="d-flex justify-content-center">
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav">

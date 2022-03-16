@@ -104,43 +104,48 @@ const MainPage = () => {
   };
   const videoMap = videos.slice(pgVS, pgVS + itemsPerPg).map((item, index) => {
     return (
-    
-        <div className="videoCard">
-          <div className="videoBox">
-            {item.video ? (
-              <video
-                className="body"
-                id={item.id}
-                onClick={(e) => {
-                  getVideoById(e.target.id);
-                }}
-                style={{ width: "18rem" }}>
-                <source src={item.video} type="video/mp4; codecs=avc1.4d002a" />
-              </video>
-            ) : null}
-          </div>
-          <div className="title">
-            <p>{item.title}</p>
-          </div>
+      <div className="videoCard">
+        <div className="videoBox">
+          {item.video ? (
+            <video
+              className="body"
+              id={item.id}
+              onClick={(e) => {
+                getVideoById(e.target.id);
+              }}
+              style={{ width: "18rem" }}>
+              <source src={item.video} type="video/mp4; codecs=avc1.4d002a" />
+            </video>
+          ) : null}
+        </div>
+        <div className="description">
           <div className="userInfo">
             <p>
               {item.image ? (
-                <img src={item.image} alt={item.firstName} style={{width:"50px", height:"50px" }}/>
+                <img
+                  src={item.image}
+                  alt={item.firstName}
+                  style={{ width: "50px", height: "50px" }}
+                />
               ) : null}
-              {item.firstName + " " + item.lastName}
             </p>
           </div>
-          <div className="btn"></div>
+          <div className="userImage">
+            <p>{item.title}</p>
+            <p>{item.firstName + " " + item.lastName}</p>
+            <p>
+              {item.showVideo} Views . {item.dateToday}{" "}
+            </p>
+          </div>
         </div>
+      </div>
     );
   });
 
   return (
     <div className="mainPage">
-      
-        <div className="cardsGroup">
-          {videoMap}
-        </div>
+      <div className="cardsGroup">{videoMap}</div>
+      <div>
         <PaginateReact
           PreviousLabel={"Previous"}
           NextLabel={"Next"}
@@ -150,6 +155,8 @@ const MainPage = () => {
           disabledClassName={" paginationDisabled "}
           activeClassName={" paginationActive "}
         />
+        
+      </div>
     </div>
   );
 };
