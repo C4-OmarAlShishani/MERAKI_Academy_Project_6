@@ -5,6 +5,7 @@ import axios from "axios";
 import "./navbar.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { RiVideoUploadLine } from "react-icons/ri";
+import { FaSignOutAlt } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { setVideos, setCategories } from "../../reducer/video/index";
 import { logOut } from "../../reducer/login/index";
@@ -62,7 +63,7 @@ const NavBar = () => {
           <button
             className="searchBtn"
             onClick={() => getFilteredItems(searchValue)}>
-            <AiOutlineSearch />
+            <AiOutlineSearch style={{ width: "20px", height: "20px" }}/>
           </button>
         </div>
           <div className="list">
@@ -74,16 +75,16 @@ const NavBar = () => {
                       <RiVideoUploadLine style={{ width: "30px", height: "30px" }}/>
                     </Link>
                   </li>
-                  <li>
+                  <li className="userNav">
                     <img src={localStorage.getItem("image")}  style={{ width: "40px", height: "40px", borderRadius: "50%" }}/>
-                  </li>
                     <h4>{localStorage.getItem("userName")}</h4>
+                  </li>
                   <li className="nav-item">
                     <Link
                       className="nav-link"
                       to="/"
                       onClick={() => dispatch(logOut())}>
-                      Signout
+                      <FaSignOutAlt/>
                     </Link>
                   </li>
                 </>
