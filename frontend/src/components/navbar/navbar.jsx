@@ -71,12 +71,13 @@ const NavBar = () => {
                 <>
                   <li className="nav-item">
                     <Link className="nav-link" to="/add">
-                      <RiVideoUploadLine />
+                      <RiVideoUploadLine style={{ width: "30px", height: "30px" }}/>
                     </Link>
                   </li>
                   <li>
                     <img src={localStorage.getItem("image")}  style={{ width: "40px", height: "40px", borderRadius: "50%" }}/>
                   </li>
+                    <h4>{localStorage.getItem("userName")}</h4>
                   <li className="nav-item">
                     <Link
                       className="nav-link"
