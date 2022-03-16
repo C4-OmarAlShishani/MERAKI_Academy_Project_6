@@ -96,7 +96,7 @@ const MainPage = () => {
 
   //===============================================================
 
-  const itemsPerPg = 4;
+  const itemsPerPg = 12;
   const pgVS = pgNum * itemsPerPg;
   const pageCount = Math.ceil(videos.length / itemsPerPg);
   const changePage = ({ selected }) => {
@@ -119,18 +119,18 @@ const MainPage = () => {
           ) : null}
         </div>
         <div className="description">
-          <div className="userInfo">
+          <div className="userImage">
             <p>
               {item.image ? (
                 <img
                   src={item.image}
                   alt={item.firstName}
-                  style={{ width: "50px", height: "50px" }}
+                  style={{ width: "50px", height: "50px", borderRadius:"50%" }}
                 />
               ) : null}
             </p>
           </div>
-          <div className="userImage">
+          <div className="userInfo">
             <p>{item.title}</p>
             <p>{item.firstName + " " + item.lastName}</p>
             <p>

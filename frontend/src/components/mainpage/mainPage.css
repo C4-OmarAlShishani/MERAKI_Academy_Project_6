@@ -3,9 +3,9 @@
 .cardsGroup {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  margin-top: 2%;
+  margin: 2%;
   gap: 3%;
 }
 
@@ -20,11 +20,13 @@
   justify-content: space-between;
 }
 
+.userInfo P{
+  margin-bottom:4px;
+}
 
 
 .pagination_box {
   align-content: center;
-  width: 80%;
   height: 40px;
   list-style: none;
   display: flex;
