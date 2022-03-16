@@ -66,7 +66,7 @@ const NavBar = () => {
           </button>
         </div>
           <div className="list">
-            <ul className="navbar-nav">
+            <ul className="list">
               {isLoggedIn ? (
                 <>
                   <li className="nav-item">

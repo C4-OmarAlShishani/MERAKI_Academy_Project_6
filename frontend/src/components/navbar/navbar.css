@@ -1,12 +1,30 @@
-.navBar{
+/** @format */
+
+.navBar {
     display: flex;
-justify-content: space-between;
-align-items: center;
-height: 50px;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    color: black;
 }
 
-.search{
-    display: flex;
-    justify-content: space-between;
-    height: 40px;
+.search {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  width: 40%;
+}
+
+.list ul{
+    margin: 0%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1rem;
+  list-style: none;
+}
+
+.navBar a{
+    color: black;
+    
 }
