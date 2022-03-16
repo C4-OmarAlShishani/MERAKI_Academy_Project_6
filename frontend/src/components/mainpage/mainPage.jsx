@@ -125,15 +125,17 @@ const MainPage = () => {
                 <img
                   src={item.image}
                   alt={item.firstName}
-                  style={{ width: "50px", height: "50px", borderRadius:"50%" }}
+                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
                 />
               ) : null}
             </p>
           </div>
           <div className="userInfo">
             <p>{item.title}</p>
-            <p>{item.firstName + " " + item.lastName}</p>
-            <p>
+            <p style={{ color: "rgba(0, 0, 0, 0.486)", fontSize: "0.9rem" }}>
+              {item.firstName + " " + item.lastName}
+            </p>
+            <p style={{ color: "rgba(0, 0, 0, 0.486)", fontSize: "0.9rem" }}>
               {item.showVideo} Views . {item.dateToday}{" "}
             </p>
           </div>
@@ -155,7 +157,6 @@ const MainPage = () => {
           disabledClassName={" paginationDisabled "}
           activeClassName={" paginationActive "}
         />
-        
       </div>
     </div>
   );

@@ -9,21 +9,21 @@
   gap: 3%;
 }
 
-.videoCard{
+.videoCard {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding-bottom: 2%;
 }
 
-.description{
+.description {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
-.userInfo P{
-  margin-bottom:4px;
+.userInfo P {
+  margin-bottom: 4px;
 }
-
 
 .pagination_box {
   align-content: center;
