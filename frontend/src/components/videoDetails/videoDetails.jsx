@@ -161,22 +161,23 @@ const VideoDetails = () => {
           style={{ fontSize: "1ram" }}></iframe>
         <h2 style={{ fontSize: "1rem" }}>{videoInfo.title}</h2>
         <div className="info">
-          <p>{videoInfo.showVideo} views  .  {videoInfo.dateToday}</p>
+          <p>
+            {videoInfo.showVideo} views . {videoInfo.dateToday}
+          </p>
           <BiLike
             onClick={() => {
               isLoggedIn ? addLike(result) : navigate("/login");
             }}
             style={{ width: "24px", height: "24px" }}
-            />
-          {videoInfo.likes}
+          />
+          <h1 style={{fontSize:"14px"}}>{videoInfo.likes} </h1>
           <BiDislike
             onClick={() => {
               isLoggedIn ? addDisLike(result) : navigate("/login");
             }}
             style={{ width: "24px", height: "24px" }}
           />
-          {videoInfo.dislike}
-
+           <h1 style={{fontSize:"14px"}}>{videoInfo.dislike}</h1>
 
           <p></p>
         </div>
