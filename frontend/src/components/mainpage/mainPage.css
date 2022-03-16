@@ -8,3 +8,31 @@
   margin-top: 2%;
   gap: 1%;
 }
+
+.pagination_box {
+  align-content: center;
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+.pagination_box a {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  border: 1px solid rgb(255, 211, 51);
+  color: #2790bd;
+  cursor: pointer;
+}
+.pagination_box a:hover {
+  color: white;
+  background-color: #2b2eff;
+}
+.paginationActive a {
+  color: white;
+  background-color: #2790bd;
+}
+.paginationDisabled a {
+  display: none;
+}
