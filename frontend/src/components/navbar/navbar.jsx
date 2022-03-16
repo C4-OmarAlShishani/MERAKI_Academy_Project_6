@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "./navbar.css";
 import { AiOutlineSearch } from "react-icons/ai";
+import { RiVideoUploadLine } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import { setVideos, setCategories } from "../../reducer/video/index";
 import { logOut } from "../../reducer/login/index";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-
   const [searchValue, setSearchValue] = useState("");
 
   const dispatch = useDispatch();
@@ -22,7 +22,6 @@ const NavBar = () => {
       token: state.loginReducer.token,
     };
   });
-
   const getFilteredItems = async (value) => {
     try {
       const res = await axios.post(
@@ -36,7 +35,7 @@ const NavBar = () => {
       );
       if (res.data.success) {
         dispatch(setVideos(res.data.result));
-        navigate("/")
+        navigate("/");
       } else throw Error;
     } catch (error) {
       if (!error.response.data.success) {
@@ -46,12 +45,11 @@ const NavBar = () => {
     }
   };
   return (
-    <nav className="navbar navbar-expand-md border-bottom">
-      <div className="container">
-        <Link to="/" className="navbar-brand ">
+      <div className="navBar">
+        <Link to="/" >
           WATCH BOX
         </Link>
-        <div className="d-flex justify-content-center col-6">
+        <div className="search">
           <input
             className="form-control "
             type="search"
@@ -61,43 +59,50 @@ const NavBar = () => {
               setSearchValue(`%${e.target.value}%`);
             }}
           />
-          <button className="btn btn-outline-success" onClick={()=>getFilteredItems(searchValue)}>
+          <button
+            className="searchBtn"
+            onClick={() => getFilteredItems(searchValue)}>
             <AiOutlineSearch />
           </button>
         </div>
-        <form className="d-flex justify-content-center">
-          <div className="collapse navbar-collapse">
+          <div className="list">
             <ul className="navbar-nav">
-              <li className="nav-item">
-                {isLoggedIn ? (
-                  <Link className="nav-link" to="/add">
-                    +
-                  </Link>
-                ) : null}
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/singUp">
-                  Singup
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="/"
-                  onClick={() => dispatch(logOut())}>
-                  Signout
-                </Link>
-              </li>
+              {isLoggedIn ? (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/add">
+                      <RiVideoUploadLine />
+                    </Link>
+                  </li>
+                  <li>
+                    <img src={localStorage.getItem("image")}  style={{ width: "40px", height: "40px", borderRadius: "50%" }}/>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link"
+                      to="/"
+                      onClick={() => dispatch(logOut())}>
+                      Signout
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/singUp">
+                      Singup
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/login">
+                      login
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
-        </form>
       </div>
-    </nav>
   );
 };
 
