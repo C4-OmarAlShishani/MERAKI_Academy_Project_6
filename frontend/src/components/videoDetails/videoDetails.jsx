@@ -181,11 +181,14 @@ const VideoDetails = () => {
 
           <p></p>
         </div>
-
+        <li className="userNav">
+                    <img src={videoInfo.image}  style={{ width: "48px", height: "48px", borderRadius: "50%" }}/>
+                    <h4 style={{fontSize:"14px"}}>{videoInfo.firstName} {videoInfo.lastName}</h4>
+                  </li>
         <h2>
-          {videoInfo.firstName} {videoInfo.lastName}
+          
         </h2>
-        <h2>{videoInfo.descriptions}</h2>
+        <h2 style={{fontSize:"14px"}}>{videoInfo.descriptions}</h2>
         {isLoggedIn ? (
           <>
             <input
