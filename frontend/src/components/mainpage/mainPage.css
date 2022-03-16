@@ -6,8 +6,12 @@
   justify-content: center;
   align-items: center;
   margin-top: 2%;
-  gap: 1%;
+  gap: 3%;
 }
+
+
+
+
 
 .pagination_box {
   align-content: center;

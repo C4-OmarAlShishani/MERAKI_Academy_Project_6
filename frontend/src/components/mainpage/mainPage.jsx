@@ -96,7 +96,7 @@ const MainPage = () => {
 
   //===============================================================
 
-  const itemsPerPg = 3;
+  const itemsPerPg = 4;
   const pgVS = pgNum * itemsPerPg;
   const pageCount = Math.ceil(videos.length / itemsPerPg);
   const changePage = ({ selected }) => {
