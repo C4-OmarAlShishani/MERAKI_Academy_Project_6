@@ -204,7 +204,7 @@ const VideoDetails = () => {
             <h5>
               {comment.firstName} {comment.lastName}
             </h5>
-            <img src={comment.image} />
+            <img src={comment.image} style={{width:"50px", height:"50px" }}/>
             <p>{comment.comment}</p>
           </div>
         );
