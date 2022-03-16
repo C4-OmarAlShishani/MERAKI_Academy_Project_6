@@ -4,12 +4,26 @@ const connection = require("../database/db");
 
 // This function create new item
 const createNewVideo = (req, res) => {
-  const { title, descriptions, album_id, video, user_id, starterImage } =
-    req.body;
-  let day = new Date().toString().slice(0, 10);
-  console.log(day);
-  const query = `INSERT INTO videos (title, descriptions,album_id, video, user_id ,starterImage ,dateToday) VALUE (?,?,?,?,?,?,${day})`;
-  const data = [title, descriptions, album_id, video, user_id, starterImage];
+  const {
+    title,
+    descriptions,
+    album_id,
+    video,
+    user_id,
+    starterImage,
+    dateToday,
+  } = req.body;
+
+  const query = `INSERT INTO videos (title, descriptions,album_id, video, user_id ,starterImage ,dateToday) VALUE (?,?,?,?,?,?,?)`;
+  const data = [
+    title,
+    descriptions,
+    album_id,
+    video,
+    user_id,
+    starterImage,
+    dateToday,
+  ];
   connection.query(query, data, (err, result) => {
     if (err) {
       return res.status(500).json({
@@ -97,7 +111,6 @@ const getVideoById = (req, res) => {
       result: result,
     });
   });
-
 };
 
 // // =================================================== // done
@@ -156,21 +169,21 @@ const updateVideoById = (req, res) => {
 const videoViews = (req, res) => {
   const { id } = req.params;
 
-const query = `UPDATE videos SET showVideo =showVideo+ 1 WHERE id=?`;
-const data = [id];
-connection.query(query, data, (err, result) => {
-  if (err) {
-    return res.status(500).json({
-      success: false,
-      message: ` No video with id ${id}`,
+  const query = `UPDATE videos SET showVideo =showVideo+ 1 WHERE id=?`;
+  const data = [id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: ` No video with id ${id}`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `Succeeded to show video with id ${id}`,
+      result: result,
     });
-  }
-  res.status(200).json({
-    success: true,
-    message: `Succeeded to show video with id ${id}`,
-    result: result,
   });
-});
 };
 
 // // =================================================== // done
@@ -178,41 +191,41 @@ connection.query(query, data, (err, result) => {
 const addLike = (req, res) => {
   const { id } = req.params;
 
-const query = `UPDATE videos SET likes =likes + 1 WHERE id=?`;
-const data = [id];
-connection.query(query, data, (err, result) => {
-  if (err) {
-    return res.status(500).json({
-      success: false,
-      message: ` No video with id ${id}`,
+  const query = `UPDATE videos SET likes =likes + 1 WHERE id=?`;
+  const data = [id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: ` No video with id ${id}`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `Succeeded to show video with id ${id}`,
+      result: result,
     });
-  }
-  res.status(200).json({
-    success: true,
-    message: `Succeeded to show video with id ${id}`,
-    result: result,
   });
-});
 };
 // // =================================================== // done
 const addDisLike = (req, res) => {
   const { id } = req.params;
 
-const query = `UPDATE videos SET dislike = dislike + 1 WHERE id=?`;
-const data = [id];
-connection.query(query, data, (err, result) => {
-  if (err) {
-    return res.status(500).json({
-      success: false,
-      message: ` No video with id ${id}`,
+  const query = `UPDATE videos SET dislike = dislike + 1 WHERE id=?`;
+  const data = [id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: ` No video with id ${id}`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `Succeeded to show video with id ${id}`,
+      result: result,
     });
-  }
-  res.status(200).json({
-    success: true,
-    message: `Succeeded to show video with id ${id}`,
-    result: result,
   });
-});
 };
 // // =================================================== // done
 // This function get all items like value
@@ -251,5 +264,5 @@ module.exports = {
   videoViews,
   getFilteredItems,
   addLike,
-  addDisLike
+  addDisLike,
 };

@@ -20,8 +20,7 @@ const AddVideo = () => {
   });
   const navigate = useNavigate();
   const { token, isLoggedIn } = state;
-  
-  
+
   const dispatch = useDispatch();
   //   title, descriptions,album_id, video, user_id
   const [title, setTitle] = useState("");
@@ -60,7 +59,7 @@ const AddVideo = () => {
   };
 
   //===============================================================
-
+  let day = new Date().toString().slice(4, 15);
   const createNewItem = async (url) => {
     console.log(url);
     try {
@@ -70,6 +69,7 @@ const AddVideo = () => {
         video: url,
         album_id,
         user_id,
+        dateToday: day,
       };
       const result = await axios.post("http://localhost:5000/video/", item, {
         headers: {
@@ -92,49 +92,48 @@ const AddVideo = () => {
   //===============================================================
   return (
     <div className="addItemAdmin">
+      <h2>NEW ITEM</h2>
+      <br />
+      <input
+        type="text"
+        placeholder="TITLE"
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <br />
+      <br />
+      <textarea
+        type="text"
+        placeholder="Description"
+        onChange={(e) => setDescriptions(e.target.value)}
+      />
+      <br />
+      <br />
+      <Select
+        onChange={(e) => {
+          setAlbum_id(e.value);
+        }}
+        options={options}
+        placeholder="ALBUM"
+      />
 
-          <h2>NEW ITEM</h2>
-          <br />
-          <input
-            type="text"
-            placeholder="TITLE"
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <br />
-          <br />
-          <textarea
-            type="text"
-            placeholder="Description"
-            onChange={(e) => setDescriptions(e.target.value)}
-          />
-          <br />
-          <br />
-          <Select
-            onChange={(e) => {
-              setAlbum_id(e.value);
-            }}
-            options={options}
-            placeholder="ALBUM"
-          />
-
-          <input
-            type="file"
-            onChange={(e) => {
-              setVideo(e.target.files[0]);
-            }}
-          />
-          <div className="addItemBTN">
-            <button
-              onClick={() => {
-                uploadImage();
-              }}>
-              Create New item
-            </button>
-            <br />
-            {status
-              ? message && <div className="SuccessMessage">{message}</div>
-              : message && <div className="ErrorMessage">{message}</div>}
-          </div>
+      <input
+        type="file"
+        onChange={(e) => {
+          setVideo(e.target.files[0]);
+        }}
+      />
+      <div className="addItemBTN">
+        <button
+          onClick={() => {
+            uploadImage();
+          }}>
+          Create New item
+        </button>
+        <br />
+        {status
+          ? message && <div className="SuccessMessage">{message}</div>
+          : message && <div className="ErrorMessage">{message}</div>}
+      </div>
     </div>
   );
 };
