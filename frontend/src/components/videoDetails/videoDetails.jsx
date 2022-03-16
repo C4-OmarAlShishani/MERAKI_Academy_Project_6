@@ -29,6 +29,7 @@ const VideoDetails = () => {
   let result = parseInt(location.pathname.slice(7));
 
   const [comment, setComment] = useState("");
+  const [show, setShow] = useState(false);
   const [videoId, setVideoId] = useState(result);
   const [commenterId, setCommenterId] = useState(
     parseInt(localStorage.getItem("userID"))
@@ -170,38 +171,59 @@ const VideoDetails = () => {
             }}
             style={{ width: "24px", height: "24px" }}
           />
-          <h1 style={{fontSize:"14px"}}>{videoInfo.likes} </h1>
+          <h1 style={{ fontSize: "14px" }}>{videoInfo.likes} </h1>
           <BiDislike
             onClick={() => {
               isLoggedIn ? addDisLike(result) : navigate("/login");
             }}
             style={{ width: "24px", height: "24px" }}
           />
-           <h1 style={{fontSize:"14px"}}>{videoInfo.dislike}</h1>
+          <h1 style={{ fontSize: "14px" }}>{videoInfo.dislike}</h1>
 
           <p></p>
         </div>
         <li className="userNav">
-                    <img src={videoInfo.image}  style={{ width: "48px", height: "48px", borderRadius: "50%" }}/>
-                    <h4 style={{fontSize:"14px"}}>{videoInfo.firstName} {videoInfo.lastName}</h4>
-                  </li>
-        <h2>
-          
-        </h2>
-        <h2 style={{fontSize:"14px"}}>{videoInfo.descriptions}</h2>
+          <img
+            src={videoInfo.image}
+            style={{ width: "48px", height: "48px", borderRadius: "50%" }}
+          />
+          <h4 style={{ fontSize: "14px" }}>
+            {videoInfo.firstName} {videoInfo.lastName}
+          </h4>
+        </li>
+        <h2></h2>
+        <h2 style={{ fontSize: "14px" }}>{videoInfo.descriptions}</h2>
         {isLoggedIn ? (
           <>
+            <img
+              src={localStorage.getItem("image")}
+              style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+            />
             <input
               type="text"
               placeholder="COMMENT"
               onChange={(e) => setComment(e.target.value)}
+              onFocus={() => {
+                setShow(true);
+              }}
             />
-            <button
-              onClick={() => {
-                addComment();
-              }}>
-              ADD COMMENT
-            </button>
+            {show ? (
+              <>
+                <button
+                  onClick={() => {
+                    addComment();
+                    setShow(false);
+                  }}>
+                  ADD COMMENT
+                </button>
+                <button
+                  onClick={() => {
+                    setShow(false);
+                  }}>
+                  CANCEL
+                </button>
+              </>
+            ) : null}
           </>
         ) : null}
         {comments.map((comment) => {
