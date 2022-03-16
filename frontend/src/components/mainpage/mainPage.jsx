@@ -125,7 +125,12 @@ const MainPage = () => {
                 <img
                   src={item.image}
                   alt={item.firstName}
-                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    // border: "solid 1px",
+                  }}
                 />
               ) : null}
             </p>
