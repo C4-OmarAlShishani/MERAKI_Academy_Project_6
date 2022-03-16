@@ -1,5 +1,6 @@
 /** @format */
 import React, { useEffect, useState } from "react";
+import "./videoDetails.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setVideoInfo, updateVideoInfo } from "../../reducer/videoInfo/index";
@@ -151,64 +152,69 @@ const VideoDetails = () => {
   // console.log(videoInfo);
   return (
     <div className="videoDetails">
-      <h1>VideoDetails</h1>
-      {/* <video controls style={{ width: "800px" }}>
-        <source src={videoInfo.video} type="video/mp4; codecs=avc1.4d002a" />
-      </video> */}
-      <iframe
-        allowFullScreen={true}
-        src={videoInfo.video}
-        width="800px"
-        height="450px"></iframe>
-      <h2>{videoInfo.title}</h2>
-      <h2>
-        {videoInfo.firstName} {videoInfo.lastName}
-      </h2>
-      <h2>{videoInfo.descriptions}</h2>
-      <BiLike
-        onClick={() => {
-          isLoggedIn ? addLike(result) : navigate("/login");
-        }}
-        style={{ width: "50px", height: "50px" }}
-      />
-      {videoInfo.likes}
-      <BiDislike
-        onClick={() => {
-          isLoggedIn ? addDisLike(result) : navigate("/login");
-        }}
-        style={{ width: "50px", height: "50px" }}
-      />
-      {videoInfo.dislike}
-      <br />
-      {videoInfo.showVideo}
-      <br />
-      {videoInfo.dateToday}
-      {isLoggedIn ? (
-        <>
-          <input
-            type="text"
-            placeholder="COMMENT"
-            onChange={(e) => setComment(e.target.value)}
-          />
-          <button
+      <div className="videoInfo">
+        <iframe
+          allowFullScreen={true}
+          src={videoInfo.video}
+          width="640px"
+          height="360px"
+          style={{ fontSize: "1ram" }}></iframe>
+        <h2 style={{ fontSize: "1rem" }}>{videoInfo.title}</h2>
+        <div className="info">
+          <p>{videoInfo.showVideo}</p>
+          <BiLike
             onClick={() => {
-              addComment();
-            }}>
-            ADD COMMENT
-          </button>
-        </>
-      ) : null}
-      {comments.map((comment) => {
-        return (
-          <div className="comment">
-            <h5>
-              {comment.firstName} {comment.lastName}
-            </h5>
-            <img src={comment.image} style={{width:"50px", height:"50px" }}/>
-            <p>{comment.comment}</p>
-          </div>
-        );
-      })}
+              isLoggedIn ? addLike(result) : navigate("/login");
+            }}
+            style={{ width: "50px", height: "50px" }}
+            />
+          {videoInfo.likes}
+          <BiDislike
+            onClick={() => {
+              isLoggedIn ? addDisLike(result) : navigate("/login");
+            }}
+            style={{ width: "50px", height: "50px" }}
+          />
+          {videoInfo.dislike}
+
+
+          <p>{videoInfo.dateToday}</p>
+        </div>
+
+        <h2>
+          {videoInfo.firstName} {videoInfo.lastName}
+        </h2>
+        <h2>{videoInfo.descriptions}</h2>
+        {isLoggedIn ? (
+          <>
+            <input
+              type="text"
+              placeholder="COMMENT"
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button
+              onClick={() => {
+                addComment();
+              }}>
+              ADD COMMENT
+            </button>
+          </>
+        ) : null}
+        {comments.map((comment) => {
+          return (
+            <div className="comment">
+              <h5>
+                {comment.firstName} {comment.lastName}
+              </h5>
+              <img
+                src={comment.image}
+                style={{ width: "50px", height: "50px" }}
+              />
+              <p>{comment.comment}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

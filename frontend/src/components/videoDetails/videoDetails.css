@@ -1,0 +1,19 @@
+/** @format */
+
+.videoDetails {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.videoInfo{
+    width: 80%;
+    padding-top: 24px;
+}
+
+.info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 350px;
+}
