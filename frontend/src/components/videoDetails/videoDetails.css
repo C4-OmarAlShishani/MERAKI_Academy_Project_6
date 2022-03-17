@@ -1,13 +1,13 @@
 /** @format */
 
 .videoDetails {
-  width: 100%;
+  width:100%;
   display: flex;
   justify-content: center;
 }
 
 .videoInfo{
-    width: 80%;
+    width: 50%;
     padding-top: 24px;
 }
 
@@ -17,4 +17,8 @@
     width: 350px;
     border-bottom: solid 1px rgba(90, 83, 83, 0.212);;
     margin-bottom: 2%;
+}
+
+.videoBoxInDetails{
+  
 }

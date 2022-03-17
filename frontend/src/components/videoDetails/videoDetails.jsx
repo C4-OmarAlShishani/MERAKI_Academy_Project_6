@@ -4,6 +4,8 @@ import "./videoDetails.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setVideoInfo, updateVideoInfo } from "../../reducer/videoInfo/index";
+import { setVideos } from "../../reducer/video/index";
+
 import { BiLike, BiDislike } from "react-icons/bi";
 
 import {
@@ -15,14 +17,17 @@ import {
 import axios from "axios";
 
 const VideoDetails = () => {
-  const { videoInfo, token, comments, isLoggedIn } = useSelector((state) => {
-    return {
-      videoInfo: state.videoInfoReducer.videoInfo,
-      comments: state.commentReducer.comments,
-      token: state.loginReducer.token,
-      isLoggedIn: state.loginReducer.isLoggedIn,
-    };
-  });
+  const { videoInfo, token, comments, isLoggedIn, videos } = useSelector(
+    (state) => {
+      return {
+        videoInfo: state.videoInfoReducer.videoInfo,
+        comments: state.commentReducer.comments,
+        token: state.loginReducer.token,
+        isLoggedIn: state.loginReducer.isLoggedIn,
+        videos: state.videosReducer.videos,
+      };
+    }
+  );
 
   const location = useLocation();
   const dispatch = useDispatch();
@@ -49,7 +54,6 @@ const VideoDetails = () => {
       if (res.data.success) {
         dispatch(setVideos(res.data.result));
         setMessage("");
-        setUserId(res.data.userId);
       } else throw Error;
     } catch (error) {
       if (!error.response.data.success) {
@@ -125,9 +129,9 @@ const VideoDetails = () => {
       if (result.data.success) {
         dispatch(
           addComment({ comment, video_id: videoId, commentr_id: commenterId })
-          );
-          console.log("The item has been created successfully");
-          setMessage(3);
+        );
+        console.log("The item has been created successfully");
+        setMessage(3);
       }
     } catch (error) {
       if (!error.response.data.success) {
@@ -169,8 +173,58 @@ const VideoDetails = () => {
 
   useEffect(() => {
     views(result);
+    getAllVideos();
   }, []);
   // console.log(videoInfo);
+
+  const videoMap = videos.map((item, index) => {
+    return (
+      <div className="videoCardInDetails">
+        <div className="videoBoxInDetails">
+          {item.video ? (
+            <video
+              className="bodyInDetails"
+              id={item.id}
+              onClick={(e) => {
+                getVideoById(e.target.id);
+              }}
+              style={{ width: "18rem" }}>
+              <source src={item.video} type="video/mp4; codecs=avc1.4d002a" />
+            </video>
+          ) : null}
+        </div>
+        <div className="descriptionInDetails">
+          <div className="userImageInDetails">
+            <p>
+              {item.image ? (
+                <img
+                  src={item.image}
+                  alt={item.firstName}
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    // border: "solid 1px",
+                  }}
+                />
+              ) : null}
+            </p>
+          </div>
+          <div className="userInfoInDetails">
+            <p>{item.title}</p>
+            <p style={{ color: "rgba(0, 0, 0, 0.486)", fontSize: "0.9rem" }}>
+              {item.firstName + " " + item.lastName}
+            </p>
+            <p style={{ color: "rgba(0, 0, 0, 0.486)", fontSize: "0.9rem" }}>
+              {item.showVideo} Views . {item.dateToday}{" "}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  });
+
+
   return (
     <div className="videoDetails">
       <div className="videoInfo">
@@ -179,7 +233,9 @@ const VideoDetails = () => {
           src={videoInfo.video}
           width="640px"
           height="360px"
-          style={{ fontSize: "1ram" }}></iframe><br/><br/>
+          style={{ fontSize: "1ram" }}></iframe>
+        <br />
+        <br />
         <h2 style={{ fontSize: "1rem" }}>{videoInfo.title}</h2>
         <div className="info">
           <p>
@@ -261,6 +317,8 @@ const VideoDetails = () => {
           );
         })}
       </div>
+      <div>{videoMap}</div>  
+
     </div>
   );
 };
