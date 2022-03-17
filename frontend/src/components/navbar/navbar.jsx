@@ -90,7 +90,10 @@ const NavBar = () => {
                 <Link
                   className="nav-link"
                   to="/"
-                  onClick={() => dispatch(logOut())}>
+                  onClick={() => {
+                    dispatch(logOut());
+                    localStorage.clear();
+                  }}>
                   <FaSignOutAlt style={{ width: "25px", height: "25px" }} />
                 </Link>
               </li>
