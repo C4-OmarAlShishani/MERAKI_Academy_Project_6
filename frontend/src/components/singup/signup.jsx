@@ -13,6 +13,7 @@ const SignUp = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [imageURL, setImageURL] = useState("");
+  const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [done, setDone] = useState(false);
@@ -28,7 +29,7 @@ const SignUp = () => {
         formData
       )
       .then(async (res) => {
-        // await setImageURL(res.data.secure_url);
+        await setImageURL(res.data.secure_url);
         createUser(res.data.secure_url);
       });
   };
@@ -64,6 +65,7 @@ const SignUp = () => {
       console.log("The password should be the same in the repeat password");
     }
   };
+  console.log(image);
   return (
     <div className="signUp">
       <div className="group">
@@ -197,11 +199,17 @@ const SignUp = () => {
                         accept=".png, .jpg, .jpeg"
                         onChange={(e) => {
                           setImageURL(e.target.files[0]);
+                          setImage(e.target.value);
                         }}
                       />
                       <label for="imageUpload"></label>
                     </div>
-                    <div class="avatar-preview">
+                    <div
+                      class="avatar-preview"
+                      style={{
+                        backgroundImage: `url(${image ? image : avatar})`,
+                        backgroundSize: "cover",
+                      }}>
                       <div id="imagePreview"></div>
                     </div>
                   </div>
