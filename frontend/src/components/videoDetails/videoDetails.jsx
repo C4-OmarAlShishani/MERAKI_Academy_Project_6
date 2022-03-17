@@ -159,7 +159,7 @@ const VideoDetails = () => {
           src={videoInfo.video}
           width="640px"
           height="360px"
-          style={{ fontSize: "1ram" }}></iframe>
+          style={{ fontSize: "1ram" }}></iframe><br/><br/>
         <h2 style={{ fontSize: "1rem" }}>{videoInfo.title}</h2>
         <div className="info">
           <p>
