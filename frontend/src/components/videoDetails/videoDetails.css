@@ -7,8 +7,8 @@
 }
 
 .videoInfo{
-    width: 50%;
-    padding-top: 24px;
+    width: 55%;
+    padding-top: 10px;
 }
 
 .info{
@@ -19,6 +19,8 @@
     margin-bottom: 2%;
 }
 
-.videoBoxInDetails{
-  
+.videoCardInDetails{
+  display: flex;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }

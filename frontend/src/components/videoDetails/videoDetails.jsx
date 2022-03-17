@@ -188,13 +188,13 @@ const VideoDetails = () => {
               onClick={(e) => {
                 getVideoById(e.target.id);
               }}
-              style={{ width: "18rem" }}>
+              style={{ width: "10rem" }}>
               <source src={item.video} type="video/mp4; codecs=avc1.4d002a" />
             </video>
           ) : null}
         </div>
-        <div className="descriptionInDetails">
-          <div className="userImageInDetails">
+        <div className="description">
+          <div className="userImage">
             <p>
               {item.image ? (
                 <img
@@ -210,7 +210,7 @@ const VideoDetails = () => {
               ) : null}
             </p>
           </div>
-          <div className="userInfoInDetails">
+          <div className="userInfo">
             <p>{item.title}</p>
             <p style={{ color: "rgba(0, 0, 0, 0.486)", fontSize: "0.9rem" }}>
               {item.firstName + " " + item.lastName}
@@ -231,8 +231,8 @@ const VideoDetails = () => {
         <iframe
           allowFullScreen={true}
           src={videoInfo.video}
-          width="640px"
-          height="360px"
+          width="720px"
+          height="420px"
           style={{ fontSize: "1ram" }}></iframe>
         <br />
         <br />
