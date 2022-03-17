@@ -5,12 +5,15 @@ import axios from "axios";
 import "./navbar.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { RiVideoUploadLine } from "react-icons/ri";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt,FaSignInAlt } from "react-icons/fa";
+import { BiUserPlus } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
 import { setVideos, setCategories } from "../../reducer/video/index";
 import { logOut } from "../../reducer/login/index";
 import { useNavigate } from "react-router-dom";
 import youTubeLogo from "../../image/YouTube_Logo.svg.webp"
+
+
 const NavBar = () => {
   const [searchValue, setSearchValue] = useState("");
 
@@ -72,19 +75,19 @@ const NavBar = () => {
                 <>
                   <li className="nav-item">
                     <Link className="nav-link" to="/add">
-                      <RiVideoUploadLine style={{ width: "30px", height: "30px" }}/>
+                      <RiVideoUploadLine style={{ width: "25px", height: "25px" }}/>
                     </Link>
                   </li>
                   <li className="userNav">
                     <img src={localStorage.getItem("image")}  style={{ width: "40px", height: "40px", borderRadius: "50%" }}/>
-                    <h5>{localStorage.getItem("userName")}</h5>
+                    {/* <h5>{localStorage.getItem("userName")}</h5> */}
                   </li>
                   <li className="nav-item">
                     <Link
                       className="nav-link"
                       to="/"
                       onClick={() => dispatch(logOut())}>
-                      <FaSignOutAlt/>
+                      <FaSignOutAlt style={{ width: "25px", height: "25px" }}/>
                     </Link>
                   </li>
                 </>
@@ -92,12 +95,12 @@ const NavBar = () => {
                 <>
                   <li className="nav-item">
                     <Link className="nav-link" to="/singUp">
-                      Singup
+                      <BiUserPlus style={{ width: "30px", height: "30px" }}/>
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/login">
-                      login
+                      <FaSignInAlt style={{ width: "25px", height: "25px" }}/>
                     </Link>
                   </li>
                 </>
