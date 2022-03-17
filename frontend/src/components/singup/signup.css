@@ -34,14 +34,15 @@
 .avatar-edit label:hover {
   background: #f1f1f1;
   border-color: #d6d6d6;
+  content: url(../../image/userAvatar.png);
 }
 
 .avatar-edit label:after {
-  content: "+";
+  content: url(../../image/add.svg);
   font-family: "FontAwesome";
-  color: #757575;
+  /* color: #757575; */
   position: absolute;
-  top: 10px;
+  top: 0;
   left: 0;
   right: 0;
   text-align: center;

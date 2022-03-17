@@ -162,41 +162,32 @@ const SignUp = () => {
                 </div>
                 <div className="form-outline mb-3">
                   <input
-                    type="password"
                     className="form-control form-control-lg"
-                    placeholder="Password"
                     onChange={(e) => {
                       setPassword(e.target.value);
                     }}
                     value={password}
+                    type="password"
+                    placeholder="Password"
                   />
                 </div>
                 <div className="form-outline mb-3">
                   <input
-                    type="password"
                     className="form-control form-control-lg"
-                    placeholder="Password"
                     onChange={(e) => {
-                      setPassword(e.target.value);
+                      setRepeatPassword(e.target.value);
                     }}
-                    value={password}
+                    value={repeatPassword}
+                    type="Password"
+                    placeholder="Repeat password"
                   />
-                </div>
-                <div className="d-flex justify-content-between align-items-center">
-                  <div className="form-check mb-0">
-                    <input className="form-check-input me-2" type="checkbox" />
-                    <label className="form-check-label">Remember me</label>
-                  </div>
-                  <a href="#!" className="text-body">
-                    Forgot password?
-                  </a>
                 </div>
                 <div className="text-center text-lg-start mt-4 pt-2">
                   <button
                     type="submit"
                     className="btn btn-primary btn-lg"
                     style={{ paddingLeft: "2.5rem", paddingRight: " 2.5rem" }}>
-                    Login
+                    Register
                   </button>
                   <div class="avatar-upload">
                     <div class="avatar-edit">
@@ -204,6 +195,9 @@ const SignUp = () => {
                         type="file"
                         id="imageUpload"
                         accept=".png, .jpg, .jpeg"
+                        onChange={(e) => {
+                          setImageURL(e.target.files[0]);
+                        }}
                       />
                       <label for="imageUpload"></label>
                     </div>
