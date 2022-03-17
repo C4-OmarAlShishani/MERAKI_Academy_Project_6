@@ -77,7 +77,7 @@ const NavBar = () => {
                   </li>
                   <li className="userNav">
                     <img src={localStorage.getItem("image")}  style={{ width: "40px", height: "40px", borderRadius: "50%" }}/>
-                    <h4>{localStorage.getItem("userName")}</h4>
+                    <h5>{localStorage.getItem("userName")}</h5>
                   </li>
                   <li className="nav-item">
                     <Link

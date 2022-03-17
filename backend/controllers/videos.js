@@ -46,7 +46,8 @@ const getAllVideos = (req, res) => {
   // SELECT * videos LEFT JOIN users ON videos.user_id = users.id WHERE is_deleted = 0
   // SELECT * FROM videos WHERE is_deleted = 0
   // , title, descriptions, album_id, video
-  const query = `SELECT users.*, videos.id, videos.*  FROM videos LEFT JOIN users ON videos.user_id = users.id `;
+  const query = `SELECT users.*, videos.id, videos.*  FROM videos LEFT JOIN users ON videos.user_id = users.id ORDER BY RAND() LIMIT 10`;
+  // const query = `SELECT * FROM videos ORDER BY RAND() LIMIT 5 `;
   connection.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({

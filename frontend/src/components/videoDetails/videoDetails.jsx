@@ -38,6 +38,26 @@ const VideoDetails = () => {
 
   const navigate = useNavigate();
 
+  //=============getRandomVideos============================//
+  const getAllVideos = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/video", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.data.success) {
+        dispatch(setVideos(res.data.result));
+        setMessage("");
+        setUserId(res.data.userId);
+      } else throw Error;
+    } catch (error) {
+      if (!error.response.data.success) {
+        return setMessage(error.response.data.message);
+      }
+      setMessage("Error happened while Get Data, please try again");
+    }
+  };
   //=============getVideoById============================//
   const getVideoById = async (id) => {
     await axios
