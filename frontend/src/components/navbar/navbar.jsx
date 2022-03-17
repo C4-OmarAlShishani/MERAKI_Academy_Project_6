@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setVideos, setCategories } from "../../reducer/video/index";
 import { logOut } from "../../reducer/login/index";
 import { useNavigate } from "react-router-dom";
-
+import youTubeLogo from "../../image/YouTube_Logo.svg.webp"
 const NavBar = () => {
   const [searchValue, setSearchValue] = useState("");
 
@@ -48,7 +48,7 @@ const NavBar = () => {
   return (
       <div className="navBar">
         <Link to="/" >
-          WATCH BOX
+          <img  src={youTubeLogo} width="100px" height="30px"></img>
         </Link>
         <div className="search">
           <input

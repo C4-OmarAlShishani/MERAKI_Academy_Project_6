@@ -194,7 +194,7 @@ const VideoDetails = () => {
           ) : null}
         </div>
         <div className="description">
-          <div className="userImage">
+          {/* <div className="userImage">
             <p>
               {item.image ? (
                 <img
@@ -209,7 +209,7 @@ const VideoDetails = () => {
                 />
               ) : null}
             </p>
-          </div>
+          </div> */}
           <div className="userInfo">
             <p>{item.title}</p>
             <p style={{ color: "rgba(0, 0, 0, 0.486)", fontSize: "0.9rem" }}>
