@@ -48,7 +48,7 @@ const NavBar = () => {
   return (
       <div className="navBar">
         <Link to="/" >
-          <img  src={youTubeLogo} width="100px" height="30px"></img>
+          <img  src={youTubeLogo} width="100px" height="25px"></img>
         </Link>
         <div className="search">
           <input
