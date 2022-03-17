@@ -47,7 +47,7 @@ const Login = (message) => {
 
   return (
     <>
-      <section class="vh-100">
+      <section className="vh-100">
         <div className="login_box">
           <form onSubmit={verifyUser}>
             <input
@@ -69,41 +69,54 @@ const Login = (message) => {
             <button>Login</button>
           </form>
         </div>
-        <div class="container-fluid h-custom">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <form>
+        <div className="container-fluid h-custom">
+          <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+              <form onSubmit={verifyUser}>
                 <div className="form-outline mb-4">
                   <input
                     type="email"
-                    id="form3Example3"
                     className="form-control form-control-lg"
                     placeholder="Email address"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                    value={email}
                   />
                 </div>
-                <div class="form-outline mb-3">
+                <div className="form-outline mb-3">
                   <input
                     type="password"
-                    id="form3Example4"
-                    class="form-control form-control-lg"
+                    className="form-control form-control-lg"
                     placeholder="Password"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                    value={password}
                   />
                 </div>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="form-check mb-0">
-                    <input
-                      class="form-check-input me-2"
-                      type="checkbox"
-                      value=""
-                      id="form2Example3"
-                    />
-                    <label class="form-check-label" for="form2Example3">
-                      Remember me
-                    </label>
+                <div className="d-flex justify-content-between align-items-center">
+                  <div className="form-check mb-0">
+                    <input className="form-check-input me-2" type="checkbox" />
+                    <label className="form-check-label">Remember me</label>
                   </div>
-                  <a href="#!" class="text-body">
+                  <a href="#!" className="text-body">
                     Forgot password?
                   </a>
+                </div>
+                <div className="text-center text-lg-start mt-4 pt-2">
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-lg"
+                    style={{ paddingLeft: "2.5rem", paddingRight: " 2.5rem" }}>
+                    Login
+                  </button>
+                  <p className="small fw-bold mt-2 pt-1 mb-0">
+                    Don't have an account?{" "}
+                    <a href="#!" className="link-danger">
+                      Register
+                    </a>
+                  </p>
                 </div>
               </form>
             </div>
