@@ -1,6 +1,7 @@
 /** @format */
 
 import axios from "axios";
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
@@ -48,27 +49,6 @@ const Login = (message) => {
   return (
     <>
       <section className="vh-100">
-        <div className="login_box">
-          <form onSubmit={verifyUser}>
-            <input
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              value={email}
-              type="email"
-              placeholder="Email"
-            />
-            <input
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              value={password}
-              type="password"
-              placeholder="Password"
-            />
-            <button>Login</button>
-          </form>
-        </div>
         <div className="container-fluid h-custom">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
@@ -106,16 +86,16 @@ const Login = (message) => {
                 </div>
                 <div className="text-center text-lg-start mt-4 pt-2">
                   <button
-                    type="button"
+                    type="submit"
                     className="btn btn-primary btn-lg"
                     style={{ paddingLeft: "2.5rem", paddingRight: " 2.5rem" }}>
                     Login
                   </button>
                   <p className="small fw-bold mt-2 pt-1 mb-0">
                     Don't have an account?{" "}
-                    <a href="#!" className="link-danger">
+                    <Link className="link-danger" to="/singUp">
                       Register
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </form>
