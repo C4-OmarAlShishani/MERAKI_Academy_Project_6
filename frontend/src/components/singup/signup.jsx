@@ -4,6 +4,7 @@ import "./signup.css";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import avatar from "../../image/userAvatar.png"
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -17,16 +18,19 @@ const SignUp = () => {
   const [done, setDone] = useState(false);
 
   const uploadImage = () => {
-      const formData = new FormData();
+    const formData = new FormData();
 
-      formData.append("file", imageURL);
-      formData.append("upload_preset", "nbngetia");
-      axios
-        .post(`https://api.cloudinary.com/v1_1/omar-alshishani/image/upload/`, formData)
-        .then(async(res) => {
-          // await setImageURL(res.data.secure_url);
-          createUser(res.data.secure_url);
-        });
+    formData.append("file", imageURL);
+    formData.append("upload_preset", "nbngetia");
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/omar-alshishani/image/upload/`,
+        formData
+      )
+      .then(async (res) => {
+        // await setImageURL(res.data.secure_url);
+        createUser(res.data.secure_url);
+      });
   };
 
   const createUser = async (url) => {
@@ -63,55 +67,54 @@ const SignUp = () => {
   return (
     <div className="signUp">
       <div className="group">
+        <input
+          onChange={(e) => {
+            setFirstName(e.target.value);
+          }}
+          value={firstName}
+          type="text"
+          placeholder="First Name"
+        />
 
-          <input
-            onChange={(e) => {
-              setFirstName(e.target.value);
-            }}
-            value={firstName}
-            type="text"
-            placeholder="First Name"
-          />
+        <input
+          onChange={(e) => {
+            setLastName(e.target.value);
+          }}
+          value={lastName}
+          type="text"
+          placeholder="Last Name"
+        />
 
-          <input
-            onChange={(e) => {
-              setLastName(e.target.value);
-            }}
-            value={lastName}
-            type="text"
-            placeholder="Last Name"
-          />
-
-          <input
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            value={email}
-            type="email"
-            placeholder="Email"
-          />
-          <input
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            value={password}
-            type="password"
-            placeholder="Password"
-          />
-          <input
-            onChange={(e) => {
-              setRepeatPassword(e.target.value);
-            }}
-            value={repeatPassword}
-            type="Password"
-            placeholder="Repeat password"
-          />
-          <input
-            type="file"
-            onChange={(e) => {
-              setImageURL(e.target.files[0]);
-            }}
-          />
+        <input
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          value={email}
+          type="email"
+          placeholder="Email"
+        />
+        <input
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          value={password}
+          type="password"
+          placeholder="Password"
+        />
+        <input
+          onChange={(e) => {
+            setRepeatPassword(e.target.value);
+          }}
+          value={repeatPassword}
+          type="Password"
+          placeholder="Repeat password"
+        />
+        <input
+          type="file"
+          onChange={(e) => {
+            setImageURL(e.target.files[0]);
+          }}
+        />
         <button
           onClick={() => {
             uploadImage();
@@ -202,15 +205,23 @@ const SignUp = () => {
                     </Link> */}
                   {/* </p> */}
                   <div class="avatar-upload">
-        <div class="avatar-edit">
-            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-            <label for="imageUpload"></label>
-        </div>
-        <div class="avatar-preview">
-            <div id="imagePreview" style={{backgroundImage: "url(http://i.pravatar.cc/500?img=7);"}}>
-            </div>
-        </div>
-    </div>
+                    <div class="avatar-edit">
+                      <input
+                        type="file"
+                        id="imageUpload"
+                        accept=".png, .jpg, .jpeg"
+                      />
+                      <label for="imageUpload">d</label>
+                    </div>
+                    <div class="avatar-preview">
+                      <div
+                        id="imagePreview"
+                        style={{
+                          backgroundImage:
+                            `${avatar}`
+                        }}></div>
+                    </div>
+                  </div>
                 </div>
               </form>
             </div>
