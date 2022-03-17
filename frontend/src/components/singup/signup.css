@@ -37,7 +37,7 @@
 }
 
 .avatar-edit label:after {
-  content: "\f040";
+  content: "+";
   font-family: "FontAwesome";
   color: #757575;
   position: absolute;
@@ -60,11 +60,8 @@
   width: 100%;
   height: 100%;
   border-radius: 100%;
+  background-image: url(../../image/userAvatar.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-}
-
-.imagePreview{
-    background-image: "";
 }

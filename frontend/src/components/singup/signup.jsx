@@ -4,7 +4,7 @@ import "./signup.css";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import avatar from "../../image/userAvatar.png"
+import avatar from "../../image/userAvatar.png";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -129,35 +129,35 @@ const SignUp = () => {
               <form onSubmit={uploadImage}>
                 <div className="form-outline mb-4">
                   <input
-                    type="email"
                     className="form-control form-control-lg"
-                    placeholder="Email address"
+                    onChange={(e) => {
+                      setFirstName(e.target.value);
+                    }}
+                    value={firstName}
+                    type="text"
+                    placeholder="First Name"
+                  />
+                </div>
+                <div className="form-outline mb-3">
+                  <input
+                    className="form-control form-control-lg"
+                    onChange={(e) => {
+                      setLastName(e.target.value);
+                    }}
+                    value={lastName}
+                    type="text"
+                    placeholder="Last Name"
+                  />
+                </div>
+                <div className="form-outline mb-3">
+                  <input
+                    className="form-control form-control-lg"
                     onChange={(e) => {
                       setEmail(e.target.value);
                     }}
                     value={email}
-                  />
-                </div>
-                <div className="form-outline mb-3">
-                  <input
-                    type="password"
-                    className="form-control form-control-lg"
-                    placeholder="Password"
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                    value={password}
-                  />
-                </div>
-                <div className="form-outline mb-3">
-                  <input
-                    type="password"
-                    className="form-control form-control-lg"
-                    placeholder="Password"
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                    value={password}
+                    type="email"
+                    placeholder="Email"
                   />
                 </div>
                 <div className="form-outline mb-3">
@@ -198,12 +198,6 @@ const SignUp = () => {
                     style={{ paddingLeft: "2.5rem", paddingRight: " 2.5rem" }}>
                     Login
                   </button>
-                  {/* <p className="small fw-bold mt-2 pt-1 mb-0">
-                    Don't have an account?{" "}
-                    <Link className="link-danger" to="/singUp">
-                      Register
-                    </Link> */}
-                  {/* </p> */}
                   <div class="avatar-upload">
                     <div class="avatar-edit">
                       <input
@@ -211,15 +205,10 @@ const SignUp = () => {
                         id="imageUpload"
                         accept=".png, .jpg, .jpeg"
                       />
-                      <label for="imageUpload">d</label>
+                      <label for="imageUpload"></label>
                     </div>
                     <div class="avatar-preview">
-                      <div
-                        id="imagePreview"
-                        style={{
-                          backgroundImage:
-                            `${avatar}`
-                        }}></div>
+                      <div id="imagePreview"></div>
                     </div>
                   </div>
                 </div>
