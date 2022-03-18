@@ -22,7 +22,6 @@ const MainPage = () => {
       categories: state.videosReducer.categories,
     };
   });
-  console.log(token);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -56,27 +55,29 @@ const MainPage = () => {
 
   //===============================================================
 
-  //   const getAllCategories = async () => {
-  //     try {
-  //       const res = await axios.get("http://localhost:5000/category", {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  //       if (res.data.success) {
-  //         dispatch(setCategories(res.data.result));
-  //       } else throw Error;
-  //     } catch (error) {
-  //       if (!error.response.data.success) {
-  //         return setMessage(error.response.data.message);
-  //       }
-  //       setMessage("Error happened while Get Data, please try again");
-  //     }
-  //   };
+  const getAllCategories = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/album", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.data.success) {
+        dispatch(setCategories(res.data.result));
+      } else throw Error;
+    } catch (error) {
+      if (!error.response.data.success) {
+        return setMessage(error.response.data.message);
+      }
+      setMessage("Error happened while Get Data, please try again");
+    }
+  };
+
   //===============================================================
 
   useEffect(() => {
     getAllVideos();
+    getAllCategories();
     return dispatch(setVideos([]));
   }, []);
 
@@ -104,7 +105,7 @@ const MainPage = () => {
   };
   const videoMap = videos.slice(pgVS, pgVS + itemsPerPg).map((item, index) => {
     return (
-      <div className="videoCard">
+      <div key={index} className="videoCard">
         <div className="videoBox">
           {item.starterImage ? (
             <img
@@ -160,6 +161,13 @@ const MainPage = () => {
 
   return (
     <div className="mainPage">
+      <div className="albums">
+        <ul>
+          {categories.map((ele, index) => {
+            return <li>{ele.album}</li>;
+          })}
+        </ul>
+      </div>
       <div className="cardsGroup">{videoMap}</div>
       <div>
         <PaginateReact

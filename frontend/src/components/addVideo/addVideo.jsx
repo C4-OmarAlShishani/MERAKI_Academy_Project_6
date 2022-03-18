@@ -35,8 +35,8 @@ const AddVideo = () => {
     parseInt(localStorage.getItem("userID"))
   );
   const [albums, setAlbums] = useState([]);
+  const [options, setOptions] = useState([]);
 
-  const options = [];
   //===============================================================
 
   const uploadVideo = () => {
@@ -81,11 +81,12 @@ const AddVideo = () => {
         },
       });
       if (res.data.success) {
-       let albumsItem=res.data.result
-       for (let index = 0; index < albumsItem.length; index++) {
-         const element = albumsItem[index];
-         
-       }
+        setAlbums(res.data.result);
+        let array = albums.map((ele, index) => {
+          return { value: ele["id"], label: ele["album"] };
+        });
+        setOptions(array);
+        // console.log(array);
       } else throw Error;
     } catch (error) {
       if (!error.response.data.success) {
@@ -98,6 +99,7 @@ const AddVideo = () => {
   useEffect(() => {
     getAllAlbums();
   }, []);
+
   //===============================================================
   let day = new Date().toString().slice(4, 15);
   const createNewItem = async (url) => {
@@ -131,6 +133,8 @@ const AddVideo = () => {
       }
     }
   };
+
+  //===============================================================
 
   //===============================================================
   return (
@@ -168,7 +172,7 @@ const AddVideo = () => {
             <div className="form-outline mb-1">
               <label htmlFor="form-outline">SELECT VIDEO</label>
             </div>
-            <div class="input-group shadow mb-3">
+            <div className="input-group shadow mb-3">
               <input
                 type="file"
                 change="fileName = $refs.file.files[0].name"
@@ -181,7 +185,7 @@ const AddVideo = () => {
             <div className="form-outline mb-1">
               <label htmlFor="form-outline">SELECT COVER PHOTO</label>
             </div>
-            <div class="input-group shadow">
+            <div className="input-group shadow">
               <input
                 type="file"
                 change="fileName = $refs.file.files[0].name"
