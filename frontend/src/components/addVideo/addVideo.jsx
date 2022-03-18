@@ -16,10 +16,11 @@ const AddVideo = () => {
     return {
       token: state.loginReducer.token,
       isLoggedIn: state.loginReducer.isLoggedIn,
+      categories: state.videosReducer.categories,
     };
   });
   const navigate = useNavigate();
-  const { token, isLoggedIn } = state;
+  const { token, isLoggedIn, categories } = state;
 
   const dispatch = useDispatch();
   //   title, descriptions,album_id, video, user_id
@@ -29,12 +30,12 @@ const AddVideo = () => {
   const [album_id, setAlbum_id] = useState(0);
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
-  const [videoURL, setVideoURL] = useState("");
+  const [videoURL, setVideoURL] = useState("1");
   const [starterImage, setStarterImage] = useState("");
   const [user_id, setUser_id] = useState(
     parseInt(localStorage.getItem("userID"))
   );
-  const [albums, setAlbums] = useState([]);
+  const [albums, setAlbums] = useState(categories);
   const [options, setOptions] = useState([]);
 
   //===============================================================
@@ -45,6 +46,7 @@ const AddVideo = () => {
     formData.append("file", video);
     formData.append("upload_preset", "addVideo");
     console.log(formData);
+    setVideoURL("")
     axios
       .post(
         `https://api.cloudinary.com/v1_1/omar-alshishani/video/upload/`,
@@ -90,9 +92,9 @@ const AddVideo = () => {
       } else throw Error;
     } catch (error) {
       if (!error.response.data.success) {
-        return setMessage(error.response.data.message);
+        return console.log(error.response.data.message);
       }
-      setMessage("Error happened while Get Data, please try again");
+      console.log("Error happened while Get Data, please try again");
     }
   };
 
@@ -122,7 +124,7 @@ const AddVideo = () => {
       if (result.data.success) {
         setStatus(true);
         dispatch(addVideo({ title, descriptions, video, album_id, user_id }));
-        console.log("The item has been created successfully");
+       setMessage("The item has been created successfully");
         setTitle("");
         setDescriptions("");
       }
@@ -139,6 +141,7 @@ const AddVideo = () => {
   //===============================================================
   return (
     <section className="vh-400">
+      {videoURL?
       <div className="container-fluid h-custom d-flex justify-content-center align-items-center">
         <div className="row d-flex justify-content-center align-items-center h-100 p-4 w-75 mt-4 rounded">
           <div className="col-md-8 col-lg-4 col-xl-4 offset-xl-1">
@@ -204,10 +207,11 @@ const AddVideo = () => {
                 style={{ paddingLeft: "2.5rem", paddingRight: " 2.5rem" }}>
                 Create Video
               </button>
+              {message?<p>message</p>:null}
             </div>
           </div>
         </div>
-      </div>
+      </div>:<h1>Wait A Moment </h1>}
     </section>
   );
 };

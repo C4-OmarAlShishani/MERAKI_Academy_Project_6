@@ -14,6 +14,8 @@
   align-items: flex-start;
   padding-bottom: 2%;
   padding: 5px;
+height: 300px;
+  width: 300px;
 }
 
 .description {
@@ -22,7 +24,7 @@
 }
 
 .userInfo P {
-  margin-bottom: 4px;
+  margin: 4px;
 }
 
 .pagination_box {

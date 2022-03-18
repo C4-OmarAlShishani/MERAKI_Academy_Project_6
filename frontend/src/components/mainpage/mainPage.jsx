@@ -28,35 +28,47 @@ const MainPage = () => {
   // ---------------------------------------------
   const [message, setMessage] = useState("");
   const [userId, setUserId] = useState("");
-  const [categoryId, setCategoryId] = useState(0);
+  const [categoryId, setCategoryId] = useState("0");
   const [pgNum, setPgNum] = useState(0);
 
   //===============================================================
 
   const getAllVideos = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/video", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (res.data.success) {
-        dispatch(setVideos(res.data.result));
-        setMessage("");
-        setUserId(res.data.userId);
-      } else throw Error;
-    } catch (error) {
-      if (!error.response.data.success) {
-        return setMessage(error.response.data.message);
+    if (categoryId === "0") {
+      try {
+        const res = await axios.get("http://localhost:5000/video", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (res.data.success) {
+          dispatch(setVideos(res.data.result));
+          setMessage("");
+          setUserId(res.data.userId);
+        } else throw Error;
+      } catch (error) {
+        if (!error.response.data.success) {
+          return setMessage(error.response.data.message);
+        }
+        setMessage("Error happened while Get Data, please try again");
       }
-      setMessage("Error happened while Get Data, please try again");
+    } else {
+      await axios
+        .get(`http://localhost:5000/video/album?id=${categoryId}`)
+        .then((result) => {
+          dispatch(setVideos(result.data.result));
+          setMessage("");
+          setUserId(result.data.userId);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
   //===============================================================
 
   const getAllCategories = async () => {
-    if(categoryId===0){
     try {
       const res = await axios.get("http://localhost:5000/album", {
         headers: {
@@ -71,8 +83,6 @@ const MainPage = () => {
         return setMessage(error.response.data.message);
       }
       setMessage("Error happened while Get Data, please try again");
-    }}else{
-      
     }
   };
 
@@ -82,7 +92,7 @@ const MainPage = () => {
     getAllVideos();
     getAllCategories();
     return dispatch(setVideos([]));
-  }, []);
+  }, [categoryId]);
 
   //===============================================================
   const getVideoById = async (id) => {
@@ -166,7 +176,7 @@ const MainPage = () => {
     <div className="mainPage">
       <div className="albums">
         <ul>
-          <li id="0" onClick={(e) => setCategories(e.target.id)}>
+          <li id={0} onClick={(e) => setCategoryId(e.target.id)}>
             All
           </li>
           {categories.map((ele, index) => {
@@ -175,7 +185,7 @@ const MainPage = () => {
                 key={index}
                 id={ele.id}
                 style={categoryId === ele.id ? backColor : null}
-                onClick={(e) => setCategories(e.target.id)}>
+                onClick={(e) => setCategoryId(e.target.id)}>
                 {ele.album}
               </li>
             );
