@@ -114,6 +114,28 @@ const getVideoById = (req, res) => {
   });
 };
 
+// =================================================== // done
+// This function get Item By Id
+const getVideosByAlbums = (req, res) => {
+  let { id } = req.query;
+
+  const query = `SELECT users.*, videos.id, videos.*  FROM videos inner JOIN users ON videos.album_id = ?  AND videos.user_id = users.id`;
+
+  const data = [id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: ` No video with id ${id}`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `Succeeded to get video with id ${id}`,
+      result: result,
+    });
+  });
+};
 // // =================================================== // done
 // This function to update item by id.
 const updateVideoById = (req, res) => {
@@ -311,5 +333,6 @@ module.exports = {
   getFilteredItems,
   addLike,
   addDisLike,
-  checkVideo
+  checkVideo,
+  getVideosByAlbums
 };

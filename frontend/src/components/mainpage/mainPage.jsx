@@ -28,7 +28,7 @@ const MainPage = () => {
   // ---------------------------------------------
   const [message, setMessage] = useState("");
   const [userId, setUserId] = useState("");
-  const [categoryId, setCategoryId] = useState(1);
+  const [categoryId, setCategoryId] = useState(0);
   const [pgNum, setPgNum] = useState(0);
 
   //===============================================================
@@ -56,6 +56,7 @@ const MainPage = () => {
   //===============================================================
 
   const getAllCategories = async () => {
+    if(categoryId===0){
     try {
       const res = await axios.get("http://localhost:5000/album", {
         headers: {
@@ -70,6 +71,8 @@ const MainPage = () => {
         return setMessage(error.response.data.message);
       }
       setMessage("Error happened while Get Data, please try again");
+    }}else{
+      
     }
   };
 
@@ -158,7 +161,7 @@ const MainPage = () => {
       </div>
     );
   });
-
+  let backColor = { backgroundColor: "black" };
   return (
     <div className="mainPage">
       <div className="albums">
@@ -171,6 +174,7 @@ const MainPage = () => {
               <li
                 key={index}
                 id={ele.id}
+                style={categoryId === ele.id ? backColor : null}
                 onClick={(e) => setCategories(e.target.id)}>
                 {ele.album}
               </li>

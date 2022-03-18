@@ -58,9 +58,25 @@ img:hover {
   cursor: pointer;
 }
 
-.albums ul{
+.albums ul {
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 40px;
   list-style: none;
+}
+
+.albums li {
+  text-align: center;
+  min-width: 100px;
+  padding: 5px;
+  border: solid 1px rgba(100, 98, 98, 0.404);
+  border-radius: 20px;
+  background-color: whitesmoke;
+}
+
+.albums li:hover {
+  cursor: pointer;
+  background-color: rgb(216, 212, 212);
 }
