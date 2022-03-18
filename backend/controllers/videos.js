@@ -255,6 +255,51 @@ const getFilteredItems = (req, res) => {
   });
 };
 // // =================================================== // done
+const checkVideo = (req, res) => {
+  const { video_id, user_id } = req.body;
+  const query = `SELECT * FROM videoLikedAndDisliked WHERE video_id=? AND user_id=?;`;
+  const data = [video_id, user_id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: `Server Error`,
+      });
+    }
+    if (!result) {
+      return res.status(200).json({
+        success: false,
+        message: `No items Yet`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `all the items`,
+      result: result,
+    });
+  });
+};
+
+// // =================================================== // done
+const checkLikeOrDisLikeVideo = (req, res) => {
+  const { id } = req.params;
+
+  const query = `UPDATE videos SET likes =likes + 1 WHERE id=?`;
+  const data = [id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: ` No video with id ${id}`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `Succeeded to show video with id ${id}`,
+      result: result,
+    });
+  });
+};
 
 module.exports = {
   createNewVideo,
@@ -266,4 +311,5 @@ module.exports = {
   getFilteredItems,
   addLike,
   addDisLike,
+  checkVideo
 };

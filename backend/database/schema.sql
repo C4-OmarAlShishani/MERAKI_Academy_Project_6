@@ -92,6 +92,18 @@ CREATE TABLE replayComments (
     FOREIGN KEY (commentr_id) REFERENCES users (id)
 );
 
+-- ============================ // done 
+CREATE TABLE videoLikedAndDisliked (
+    id INT NOT NULL AUTO_INCREMENT,
+    liked BIT,
+    DisLiked BIT,
+    video_id INT NOT NULL,
+    user_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (video_id) REFERENCES videos (id),
+    FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
 INSERT INTO
     roles (role)
 VALUES

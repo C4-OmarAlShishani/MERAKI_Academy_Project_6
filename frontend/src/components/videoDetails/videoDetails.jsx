@@ -7,6 +7,7 @@ import { setVideoInfo, updateVideoInfo } from "../../reducer/videoInfo/index";
 import { setVideos } from "../../reducer/video/index";
 
 import { BiLike, BiDislike } from "react-icons/bi";
+import { AiFillLike, AiFillDislike } from "react-icons/ai";
 
 import {
   setComments,
@@ -35,6 +36,8 @@ const VideoDetails = () => {
 
   const [comment, setComment] = useState("");
   const [show, setShow] = useState(false);
+  const [like, setLike] = useState(false);
+  const [dislike, setDislike] = useState(false);
   const [videoId, setVideoId] = useState(result);
   const [commenterId, setCommenterId] = useState(
     parseInt(localStorage.getItem("userID"))
@@ -224,7 +227,6 @@ const VideoDetails = () => {
     );
   });
 
-
   return (
     <div className="videoDetails">
       <div className="videoInfo">
@@ -241,19 +243,39 @@ const VideoDetails = () => {
           <p>
             {videoInfo.showVideo} views . {videoInfo.dateToday}
           </p>
-          <BiLike
-            onClick={() => {
-              isLoggedIn ? addLike(result) : navigate("/login");
-            }}
-            style={{ width: "24px", height: "24px" }}
-          />
+          {!like ? (
+            <BiLike
+              onClick={() => {
+                isLoggedIn ? addLike(result) : navigate("/login");
+                setLike(true);
+                setDislike(false);
+              }}
+              style={{ width: "24px", height: "24px" }}
+              className="like"
+            />
+          ) : (
+            <AiFillLike
+              style={{ width: "24px", height: "24px" }}
+              className="like"
+            />
+          )}
           <h1 style={{ fontSize: "14px" }}>{videoInfo.likes} </h1>
-          <BiDislike
-            onClick={() => {
-              isLoggedIn ? addDisLike(result) : navigate("/login");
-            }}
-            style={{ width: "24px", height: "24px" }}
-          />
+          {!dislike ? (
+            <BiDislike
+              onClick={() => {
+                isLoggedIn ? addDisLike(result) : navigate("/login");
+                setLike(false);
+                setDislike(true);
+              }}
+              style={{ width: "24px", height: "24px" }}
+              className="like"
+            />
+          ) : (
+            <AiFillDislike
+              style={{ width: "24px", height: "24px" }}
+              className="like"
+            />
+          )}
           <h1 style={{ fontSize: "14px" }}>{videoInfo.dislike}</h1>
 
           <p></p>
@@ -317,8 +339,7 @@ const VideoDetails = () => {
           );
         })}
       </div>
-      <div>{videoMap}</div>  
-
+      <div>{videoMap}</div>
     </div>
   );
 };

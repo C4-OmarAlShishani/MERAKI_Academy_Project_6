@@ -10,7 +10,8 @@ const {
   videoViews,
   getFilteredItems,
   addLike,
-  addDisLike
+  addDisLike,
+  checkVideo
 } = require("../controllers/videos");
 
 const videoRouter = express.Router();
@@ -18,6 +19,7 @@ const videoRouter = express.Router();
 videoRouter.post("/", createNewVideo);
 videoRouter.get("/", getAllVideos);
 videoRouter.post("/filter", getFilteredItems);
+videoRouter.post("/checkVideo", checkVideo);
 videoRouter.get("/id", getVideoById);
 videoRouter.put("/id", updateVideoById);
 videoRouter.delete("/:id", deleteVideoById);

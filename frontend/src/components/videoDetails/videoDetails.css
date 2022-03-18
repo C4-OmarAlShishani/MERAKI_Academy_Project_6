@@ -1,27 +1,31 @@
 /** @format */
 
 .videoDetails {
-  width:100%;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 
-.videoInfo{
-    width: 55%;
-    padding-top: 10px;
+.videoInfo {
+  width: 55%;
+  padding-top: 10px;
 }
 
-.info{
-    display: flex;
-    justify-content: space-between;
-    width: 350px;
-    border-bottom: solid 1px rgba(90, 83, 83, 0.212);;
-    margin-bottom: 2%;
+.info {
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+  border-bottom: solid 1px rgba(90, 83, 83, 0.212);
+  margin-bottom: 2%;
 }
 
-.videoCardInDetails{
+.videoCardInDetails {
   display: flex;
   gap: 3%;
   padding-bottom: 10px;
   padding-top: 10px;
+}
+
+.like:hover {
+  cursor: pointer;
 }
