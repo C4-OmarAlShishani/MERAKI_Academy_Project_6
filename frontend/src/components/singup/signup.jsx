@@ -13,7 +13,7 @@ const SignUp = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [imageURL, setImageURL] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(avatar);
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [done, setDone] = useState(false);
@@ -66,68 +66,10 @@ const SignUp = () => {
   };
 
   return (
-    // <div className="signUp">
-    //   <div className="group">
-    //     <input
-    //       onChange={(e) => {
-    //         setFirstName(e.target.value);
-    //       }}
-    //       value={firstName}
-    //       type="text"
-    //       placeholder="First Name"
-    //     />
-
-    //     <input
-    //       onChange={(e) => {
-    //         setLastName(e.target.value);
-    //       }}
-    //       value={lastName}
-    //       type="text"
-    //       placeholder="Last Name"
-    //     />
-
-    //     <input
-    //       onChange={(e) => {
-    //         setEmail(e.target.value);
-    //       }}
-    //       value={email}
-    //       type="email"
-    //       placeholder="Email"
-    //     />
-    //     <input
-    //       onChange={(e) => {
-    //         setPassword(e.target.value);
-    //       }}
-    //       value={password}
-    //       type="password"
-    //       placeholder="Password"
-    //     />
-    //     <input
-    //       onChange={(e) => {
-    //         setRepeatPassword(e.target.value);
-    //       }}
-    //       value={repeatPassword}
-    //       type="Password"
-    //       placeholder="Repeat password"
-    //     />
-    //     <input
-    //       type="file"
-    //       onChange={(e) => {
-    //         setImageURL(e.target.files[0]);
-    //       }}
-    //     />
-    //     <button
-    //       onClick={() => {
-    //         uploadImage();
-    //       }}>
-    //       Register
-    //     </button>
-    //   </div>
     <section className="vh-400">
       <div className="container-fluid h-custom d-flex justify-content-center align-items-center">
         <div className="row d-flex justify-content-center align-items-center h-100 p-4 w-75 mt-4 rounded">
           <div className="col-md-8 col-lg-4 col-xl-4 offset-xl-1">
-            {/* <form onSubmit={createUser}> */}
             <div className="form-outline mb-4">
               <input
                 className="form-control form-control-lg"
@@ -185,7 +127,6 @@ const SignUp = () => {
             </div>
             <div className="text-center text-lg-start mt-4 pt-2">
               <button
-                // type="submit"
                 onClick={() => createUser()}
                 className="btn btn-primary btn-lg"
                 style={{ paddingLeft: "2.5rem", paddingRight: " 2.5rem" }}>
@@ -211,16 +152,13 @@ const SignUp = () => {
                 backgroundImage: `url(${image ? image : avatar})`,
                 backgroundSize: "cover",
               }}>
-              {/* <div id="imagePreview"></div> */}
             </div>
           </div>
-          {/* </form> */}
         </div>
       </div>
     </section>
-    // </div>
   );
 };
 
 export default SignUp;
-//
+
