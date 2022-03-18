@@ -30,8 +30,6 @@ const SignUp = () => {
       )
       .then(async (res) => {
         await setImage(res.data.secure_url);
-        console.log(image);
-        // createUser(res.data.secure_url);
       });
   };
 
@@ -126,8 +124,8 @@ const SignUp = () => {
     //     </button>
     //   </div>
     <section className="vh-400">
-      <div className="container-fluid h-custom">
-        <div className="row d-flex justify-content-center align-items-center h-100 border border-primary mx-100">
+      <div className="container-fluid h-custom d-flex justify-content-center align-items-center">
+        <div className="row d-flex justify-content-center align-items-center h-100 p-4 w-75 mt-4 rounded">
           <div className="col-md-8 col-lg-4 col-xl-4 offset-xl-1">
             {/* <form onSubmit={createUser}> */}
             <div className="form-outline mb-4">
@@ -201,9 +199,10 @@ const SignUp = () => {
                 type="file"
                 id="imageUpload"
                 accept=".png, .jpg, .jpeg"
-                onChange={(e) => {
-                  setImageURL(e.target.files[0]);
-                  uploadImage();
+                onChange={async (e) => {
+                  setImageURL(await e.target.files[0]);
+                  console.log(e.target.files[0]);
+                  uploadImage(e.target.files[0]);
                 }}
               />
               <label htmlFor="imageUpload"></label>
