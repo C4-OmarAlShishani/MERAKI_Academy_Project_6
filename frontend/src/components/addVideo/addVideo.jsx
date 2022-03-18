@@ -34,10 +34,9 @@ const AddVideo = () => {
   const [user_id, setUser_id] = useState(
     parseInt(localStorage.getItem("userID"))
   );
-  const options = [
-    { value: 1, label: "Music" },
-    { value: 2, label: "Favorite" },
-  ];
+  const [albums, setAlbums] = useState([]);
+
+  const options = [];
   //===============================================================
 
   const uploadVideo = () => {
@@ -73,6 +72,32 @@ const AddVideo = () => {
         await setStarterImage(res.data.secure_url);
       });
   };
+  //===============================================================
+  const getAllAlbums = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/album", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.data.success) {
+       let albumsItem=res.data.result
+       for (let index = 0; index < albumsItem.length; index++) {
+         const element = albumsItem[index];
+         
+       }
+      } else throw Error;
+    } catch (error) {
+      if (!error.response.data.success) {
+        return setMessage(error.response.data.message);
+      }
+      setMessage("Error happened while Get Data, please try again");
+    }
+  };
+
+  useEffect(() => {
+    getAllAlbums();
+  }, []);
   //===============================================================
   let day = new Date().toString().slice(4, 15);
   const createNewItem = async (url) => {
