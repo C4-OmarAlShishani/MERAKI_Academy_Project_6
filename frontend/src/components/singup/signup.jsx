@@ -29,8 +29,9 @@ const SignUp = () => {
         formData
       )
       .then(async (res) => {
-        await setImageURL(res.data.secure_url);
-        createUser(res.data.secure_url);
+        await setImage(res.data.secure_url);
+        console.log(image);
+        // createUser(res.data.secure_url);
       });
   };
 
@@ -43,7 +44,7 @@ const SignUp = () => {
           firstName,
           lastName,
           email: email.toLowerCase(),
-          image: url,
+          image: image,
           password,
           role_id: 2,
         })
@@ -65,7 +66,7 @@ const SignUp = () => {
       console.log("The password should be the same in the repeat password");
     }
   };
-  console.log(image);
+
   return (
     <div className="signUp">
       <div className="group">
@@ -128,7 +129,7 @@ const SignUp = () => {
         <div className="container-fluid h-custom">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <form onSubmit={uploadImage}>
+              <form onSubmit={createUser}>
                 <div className="form-outline mb-4">
                   <input
                     className="form-control form-control-lg"
@@ -191,21 +192,21 @@ const SignUp = () => {
                     style={{ paddingLeft: "2.5rem", paddingRight: " 2.5rem" }}>
                     Register
                   </button>
-                  <div class="avatar-upload">
-                    <div class="avatar-edit">
+                  <div className="avatar-upload">
+                    <div className="avatar-edit">
                       <input
                         type="file"
                         id="imageUpload"
                         accept=".png, .jpg, .jpeg"
                         onChange={(e) => {
                           setImageURL(e.target.files[0]);
-                          setImage(e.target.value);
+                          uploadImage()
                         }}
                       />
-                      <label for="imageUpload"></label>
+                      <label htmlFor="imageUpload"></label>
                     </div>
                     <div
-                      class="avatar-preview"
+                      className="avatar-preview"
                       style={{
                         backgroundImage: `url(${image ? image : avatar})`,
                         backgroundSize: "cover",
