@@ -163,8 +163,18 @@ const MainPage = () => {
     <div className="mainPage">
       <div className="albums">
         <ul>
+          <li id="0" onClick={(e) => setCategories(e.target.id)}>
+            All
+          </li>
           {categories.map((ele, index) => {
-            return <li>{ele.album}</li>;
+            return (
+              <li
+                key={index}
+                id={ele.id}
+                onClick={(e) => setCategories(e.target.id)}>
+                {ele.album}
+              </li>
+            );
           })}
         </ul>
       </div>
