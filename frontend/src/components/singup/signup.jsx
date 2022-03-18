@@ -18,10 +18,10 @@ const SignUp = () => {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [done, setDone] = useState(false);
 
-  const uploadImage = () => {
+  const uploadImage = (url) => {
     const formData = new FormData();
 
-    formData.append("file", imageURL);
+    formData.append("file", url);
     formData.append("upload_preset", "nbngetia");
     axios
       .post(
@@ -200,8 +200,6 @@ const SignUp = () => {
                 id="imageUpload"
                 accept=".png, .jpg, .jpeg"
                 onChange={async (e) => {
-                  setImageURL(await e.target.files[0]);
-                  console.log(e.target.files[0]);
                   uploadImage(e.target.files[0]);
                 }}
               />
