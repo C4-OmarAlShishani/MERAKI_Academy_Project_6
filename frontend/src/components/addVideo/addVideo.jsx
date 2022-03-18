@@ -122,7 +122,7 @@ const AddVideo = () => {
           setVideo(e.target.files[0]);
         }}
       />
-      
+
       <div className="addItemBTN">
         <button
           onClick={() => {
@@ -137,93 +137,90 @@ const AddVideo = () => {
       </div>
 
       <section className="vh-400">
-      <div className="container-fluid h-custom d-flex justify-content-center align-items-center">
-        <div className="row d-flex justify-content-center align-items-center h-100 p-4 w-75 mt-4 rounded">
-          <div className="col-md-8 col-lg-4 col-xl-4 offset-xl-1">
-            {/* <form onSubmit={createUser}> */}
-            <div className="form-outline mb-4">
-              <input
-                className="form-control form-control-lg"
-                onChange={(e) => {
-                  // setFirstName(e.target.value);
-                }}
-                // value={firstName}
-                type="text"
-                placeholder="First Name"
-              />
+        <div className="container-fluid h-custom d-flex justify-content-center align-items-center">
+          <div className="row d-flex justify-content-center align-items-center h-100 p-4 w-75 mt-4 rounded">
+            <div className="col-md-8 col-lg-4 col-xl-4 offset-xl-1">
+              {/* <form onSubmit={createUser}> */}
+              <div className="form-outline mb-4">
+                <input
+                  className="form-control form-control-lg"
+                  onChange={(e) => setTitle(e.target.value)}
+                  value={title}
+                  type="text"
+                  placeholder="TITLE"
+                />
+              </div>
+              <div className="form-outline mb-3">
+                <textarea
+                  className="form-control form-control-lg"
+                  value={descriptions}
+                  type="text"
+                  placeholder="DESCRIPTION"
+                  onChange={(e) => setDescriptions(e.target.value)}
+                />
+              </div>
+              <div className="form-outline mb-3">
+                <Select
+                  onChange={(e) => {
+                    setAlbum_id(e.value);
+                  }}
+                  options={options}
+                  placeholder="ALBUM"
+                />
+              </div>
+              <div class="form-group" x-data="{ fileName: '' }">
+                <div class="input-group shadow">
+                  <span class="input-group-text px-3 text-muted">
+                    <i class="fas fa-image fa-lg"></i>
+                  </span>
+                  <input
+                    type="file"
+                    x-ref="file"
+                    change="fileName = $refs.file.files[0].name"
+                    name="img[]"
+                    class="d-none"
+                  />
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    placeholder="Upload Image"
+                    x-model="fileName"
+                  />
+                  <button
+                    class="browse btn btn-primary px-4"
+                    type="button"
+                   >
+                    Browse
+                  </button>
+                </div>
+              </div>
+              <div className="text-center text-lg-start mt-4 pt-2">
+                <button
+                  // type="submit"
+                  // onClick={() => createUser()}
+                  className="btn btn-primary btn-lg"
+                  style={{ paddingLeft: "2.5rem", paddingRight: " 2.5rem" }}>
+                  Register
+                </button>
+              </div>
             </div>
-            <div className="form-outline mb-3">
-              <input
-                className="form-control form-control-lg"
-                onChange={(e) => {
-                  // setLastName(e.target.value);
-                }}
-                // value={lastName}
-                type="text"
-                placeholder="Last Name"
-              />
+            <div className="avatar-upload">
+              <div className="avatar-edit">
+                <input
+                  type="file"
+                  id="imageUpload"
+                  accept=".png, .jpg, .jpeg"
+                  onChange={async (e) => {
+                    // uploadImage(e.target.files[0]);
+                  }}
+                />
+                <label htmlFor="imageUpload"></label>
+              </div>
             </div>
-            <div className="form-outline mb-3">
-              <input
-                className="form-control form-control-lg"
-                onChange={(e) => {
-                  // setEmail(e.target.value);
-                }}
-                // value={email}
-                type="email"
-                placeholder="Email"
-              />
-            </div>
-            <div className="form-outline mb-3">
-              <input
-                className="form-control form-control-lg"
-                onChange={(e) => {
-                  // setPassword(e.target.value);
-                }}
-                // value={password}
-                type="password"
-                placeholder="Password"
-              />
-            </div>
-            <div className="form-outline mb-3">
-              <input
-                className="form-control form-control-lg"
-                onChange={(e) => {
-                  // setRepeatPassword(e.target.value);
-                }}
-                // value={repeatPassword}
-                type="Password"
-                placeholder="Repeat password"
-              />
-            </div>
-            <div className="text-center text-lg-start mt-4 pt-2">
-              <button
-                // type="submit"
-                // onClick={() => createUser()}
-                className="btn btn-primary btn-lg"
-                style={{ paddingLeft: "2.5rem", paddingRight: " 2.5rem" }}>
-                Register
-              </button>
-            </div>
+            {/* </form> */}
           </div>
-          <div className="avatar-upload">
-            <div className="avatar-edit">
-              <input
-                type="file"
-                id="imageUpload"
-                accept=".png, .jpg, .jpeg"
-                onChange={async (e) => {
-                  // uploadImage(e.target.files[0]);
-                }}
-              />
-              <label htmlFor="imageUpload"></label>
-            </div>
-          </div>
-          {/* </form> */}
         </div>
-      </div>
-    </section>
-
+      </section>
     </div>
   );
 };
