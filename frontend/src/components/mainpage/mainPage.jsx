@@ -106,7 +106,16 @@ const MainPage = () => {
     return (
       <div className="videoCard">
         <div className="videoBox">
-          {item.video ? (
+          {item.starterImage ? (
+            <img
+              id={item.id}
+              src={item.starterImage}
+              style={{ width: "18rem" }}
+              onClick={(e) => {
+                getVideoById(e.target.id);
+              }}
+            />
+          ) : item.video ? (
             <video
               className="body"
               id={item.id}
