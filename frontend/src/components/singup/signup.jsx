@@ -125,10 +125,10 @@ const SignUp = () => {
     //       Register
     //     </button>
     //   </div>
-    <section className="vh-600">
+    <section className="vh-400">
       <div className="container-fluid h-custom">
-        <div className="row d-flex justify-content-center align-items-center h-100">
-          <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <div className="row d-flex justify-content-center align-items-center h-100 border border-primary mx-100">
+          <div className="col-md-8 col-lg-4 col-xl-4 offset-xl-1">
             {/* <form onSubmit={createUser}> */}
             <div className="form-outline mb-4">
               <input
@@ -194,30 +194,30 @@ const SignUp = () => {
                 Register
               </button>
             </div>
-            <div className="avatar-upload">
-              <div className="avatar-edit">
-                <input
-                  type="file"
-                  id="imageUpload"
-                  accept=".png, .jpg, .jpeg"
-                  onChange={(e) => {
-                    setImageURL(e.target.files[0]);
-                    uploadImage();
-                  }}
-                />
-                <label htmlFor="imageUpload"></label>
-              </div>
-              <div
-                className="avatar-preview"
-                style={{
-                  backgroundImage: `url(${image ? image : avatar})`,
-                  backgroundSize: "cover",
-                }}>
-                {/* <div id="imagePreview"></div> */}
-              </div>
-            </div>
-            {/* </form> */}
           </div>
+          <div className="avatar-upload">
+            <div className="avatar-edit">
+              <input
+                type="file"
+                id="imageUpload"
+                accept=".png, .jpg, .jpeg"
+                onChange={(e) => {
+                  setImageURL(e.target.files[0]);
+                  uploadImage();
+                }}
+              />
+              <label htmlFor="imageUpload"></label>
+            </div>
+            <div
+              className="avatar-preview"
+              style={{
+                backgroundImage: `url(${image ? image : avatar})`,
+                backgroundSize: "cover",
+              }}>
+              {/* <div id="imagePreview"></div> */}
+            </div>
+          </div>
+          {/* </form> */}
         </div>
       </div>
     </section>

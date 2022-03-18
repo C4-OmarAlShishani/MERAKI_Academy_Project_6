@@ -3,7 +3,7 @@
 .avatar-upload {
   position: relative;
   max-width: 205px;
-  margin: 50px auto;
+  margin-left: 50px;
 }
 
 .avatar-edit {
