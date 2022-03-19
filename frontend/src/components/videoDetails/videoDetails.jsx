@@ -184,9 +184,18 @@ const VideoDetails = () => {
     return (
       <div className="videoCardInDetails">
         <div className="videoBoxInDetails">
-          {item.video ? (
+        {item.starterImage ? (
+            <img
+              id={item.id}
+              src={item.starterImage}
+              style={{ width: "10rem" }}
+              onClick={(e) => {
+                getVideoById(e.target.id);
+              }}
+            />
+          ) : item.video ? (
             <video
-              className="bodyInDetails"
+              className="body"
               id={item.id}
               onClick={(e) => {
                 getVideoById(e.target.id);
@@ -197,24 +206,8 @@ const VideoDetails = () => {
           ) : null}
         </div>
         <div className="description">
-          {/* <div className="userImage">
-            <p>
-              {item.image ? (
-                <img
-                  src={item.image}
-                  alt={item.firstName}
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                    // border: "solid 1px",
-                  }}
-                />
-              ) : null}
-            </p>
-          </div> */}
           <div className="userInfo">
-            <p>{item.title}</p>
+            <p>{item.title.slice(0,40)} . . .</p>
             <p style={{ color: "rgba(0, 0, 0, 0.486)", fontSize: "0.9rem" }}>
               {item.firstName + " " + item.lastName}
             </p>

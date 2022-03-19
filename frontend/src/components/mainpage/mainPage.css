@@ -39,17 +39,17 @@ height: 300px;
   padding: 10px;
   margin: 8px;
   border-radius: 5px;
-  border: 1px solid rgb(255, 211, 51);
-  color: #2790bd;
+  border: 1px solid rgba(204, 201, 201, 0.438);
+  color: white;
   cursor: pointer;
 }
 .pagination_box a:hover {
   color: white;
-  background-color: #2b2eff;
+  background-color: whitesmoke;
 }
 .paginationActive a {
   color: white;
-  background-color: #2790bd;
+  background-color: white;
 }
 .paginationDisabled a {
   display: none;

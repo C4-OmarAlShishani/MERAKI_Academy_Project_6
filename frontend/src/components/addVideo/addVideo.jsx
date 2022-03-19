@@ -124,7 +124,7 @@ const AddVideo = () => {
       if (result.data.success) {
         setStatus(true);
         dispatch(addVideo({ title, descriptions, video, album_id, user_id }));
-       setMessage("The item has been created successfully");
+      //  setMessage("The item has been created successfully");
         setTitle("");
         setDescriptions("");
       }
@@ -207,7 +207,7 @@ const AddVideo = () => {
                 style={{ paddingLeft: "2.5rem", paddingRight: " 2.5rem" }}>
                 Create Video
               </button>
-              {message?<p>message</p>:null}
+              {message?<p></p>:null}
             </div>
           </div>
         </div>
